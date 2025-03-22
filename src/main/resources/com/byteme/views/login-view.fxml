@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.byteme.controllers.LoginController"
+            stylesheets="@../assets/byteme-style.css"
+            prefWidth="600" prefHeight="400">
+
+    <VBox alignment="CENTER" spacing="15" layoutX="100" layoutY="60" prefWidth="400">
+        <Label text="ByteMe Login" styleClass="title"/>
+        <Label text="Welcome to AI-powered tutoring!" styleClass="subtitle"/>
+
+        <TextField fx:id="usernameField" promptText="Enter Email" styleClass="text-field"/>
+        <PasswordField fx:id="passwordField" promptText="Enter Password" styleClass="text-field"/>
+
+        <Button text="Sign In" onAction="#handleLogin" styleClass="sign-in-button"/>
+        <Label fx:id="loginStatus" text="" styleClass="status-label"/>
+
+        <Label text="Don't have an account?" styleClass="subtitle"/>
+        <Button text="Sign Up" onAction="#handleSignUp" styleClass="sign-up-button"/>
+    </VBox>
+</AnchorPane>
