@@ -15,6 +15,7 @@ public class MainApplication extends Application {
         stage.setTitle("ByteMe - Login");
         stage.setScene(scene);
         stage.show();
+        //Hi its jack
     }
 
     public static void main(String[] args) {
