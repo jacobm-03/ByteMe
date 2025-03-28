@@ -1,0 +1,113 @@
+/* General styles */
+.root {
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-background-color: #e8ddff; /* Light purple background */
+}
+
+/* LOGIN PANEL */
+.login-pane {
+    -fx-background-color: #e8ddff;
+    -fx-padding: 40;
+}
+
+.logo {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a4e69;
+}
+
+.header {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a4e69;
+}
+
+.subheader {
+    -fx-text-fill: #5c5c77;
+    -fx-font-size: 13px;
+}
+
+.or-divider {
+    -fx-font-size: 14px;
+    -fx-text-fill: #a299b2;
+}
+
+.text-field, .password-field {
+    -fx-pref-width: 280;
+    -fx-padding: 10 15;
+    -fx-background-color: white;
+    -fx-background-radius: 25;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1;
+    -fx-border-radius: 25;
+    -fx-font-size: 13px;
+    -fx-text-fill: #333;
+}
+
+.action-btn {
+    -fx-background-color: linear-gradient(to right, #a799ff, #8e94f2);
+    -fx-text-fill: white;
+    -fx-background-radius: 25;
+    -fx-padding: 10 25;
+    -fx-cursor: hand;
+}
+
+.hyperlink {
+    -fx-text-fill: #5f5fe0;
+    -fx-font-size: 14px;
+}
+
+/* SIGNUP PANEL */
+.signup-pane {
+    -fx-background-color: linear-gradient(to bottom right, #c2a4ff, #bca2e0);
+    -fx-padding: 40;
+}
+
+.signup-subheader {
+    -fx-text-fill: #5c5c77;
+    -fx-font-size: 13px;
+}
+
+.input-field {
+    -fx-pref-width: 280;
+    -fx-padding: 10 15;
+    -fx-background-color: white;
+    -fx-background-radius: 25;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1;
+    -fx-border-radius: 25;
+    -fx-font-size: 13px;
+    -fx-text-fill: #333;
+}
+
+.input-field:focused {
+    -fx-border-color: #8e94f2;
+    -fx-background-color: #fafafa;
+}
+
+.action-btn {
+    -fx-background-color: linear-gradient(to right, #a799ff, #8e94f2);
+    -fx-text-fill: white;
+    -fx-background-radius: 25;
+    -fx-padding: 10 25;
+}
+
+.social {
+    -fx-background-radius: 50%;
+    -fx-padding: 10;
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+}
+
+.social.facebook {
+    -fx-background-color: #3b5998;
+}
+
+.social.google {
+    -fx-background-color: #db4437;
+}
+
+.social.linkedin {
+    -fx-background-color: #0077b5;
+}
+

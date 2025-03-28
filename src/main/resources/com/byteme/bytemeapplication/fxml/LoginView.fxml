@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane fx:id="root" xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.byteme.bytemeapplication.Controllers.LoginController"
+           stylesheets="@../css/style.css">
+
+    <HBox fx:id="container" prefWidth="800" prefHeight="600">
+
+        <!-- LOGIN PANEL -->
+        <HBox fx:id="loginPane" alignment="CENTER" styleClass="login-pane" prefWidth="600" spacing="20">
+            <VBox alignment="CENTER" spacing="20">
+                <Label text="ByteMe" styleClass="logo"/>
+                <Label text="Login to Your Account" styleClass="header"/>
+                <Label text="Login using social networks" styleClass="subheader"/>
+
+                <HBox spacing="10" alignment="CENTER">
+                    <Button text="f" styleClass="social facebook"/>
+                    <Button text="G+" styleClass="social google"/>
+                    <Button text="in" styleClass="social linkedin"/>
+                </HBox>
+
+                <Label text="OR" styleClass="or-divider"/>
+
+                <TextField fx:id="loginEmail" promptText="Email" styleClass="input-field"/>
+                <PasswordField fx:id="loginPassword" promptText="Password" styleClass="input-field"/>
+                <Button text="Sign In" onAction="#showLogin" styleClass="action-btn"/>
+
+                <Hyperlink text="Don't have an account? Sign Up" onAction="#showSignUp" styleClass="hyperlink"/>
+            </VBox>
+        </HBox>
+
+        <!-- SIGNUP PANEL -->
+        <HBox fx:id="signupPane" alignment="CENTER" styleClass="signup-pane" prefWidth="200" spacing="20">
+            <VBox alignment="CENTER" spacing="20">
+                <Label text="New Here?" styleClass="header"/>
+                <Label text="Sign up and discover a great amount of new opportunities!" wrapText="true" styleClass="signup-subheader"/>
+                <Button text="Sign Up" onAction="#showSignUp" styleClass="action-btn"/>
+
+
+            </VBox>
+        </HBox>
+
+    </HBox>
+</StackPane>
