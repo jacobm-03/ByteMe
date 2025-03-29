@@ -39,11 +39,21 @@
             <VBox alignment="CENTER" spacing="20">
                 <Label text="New Here?" styleClass="header"/>
                 <Label text="Sign up and discover a great amount of new opportunities!" wrapText="true" styleClass="signup-subheader"/>
-                <Button text="Sign Up" onAction="#showSignUp" styleClass="action-btn"/>
 
+                <!-- Form to fade in/out -->
+                <VBox fx:id="signupForm" spacing="10" opacity="0" visible="false">
+                    <TextField promptText="First Name" styleClass="input-field"/>
+                    <TextField promptText="Last Name" styleClass="input-field"/>
+                    <TextField promptText="Email" styleClass="input-field"/>
+                    <PasswordField promptText="Password" styleClass="input-field"/>
+                    <PasswordField promptText="Confirm Password" styleClass="input-field"/>
+                </VBox>
 
+                <Button text="Sign Up" onAction="#handleSignup" styleClass="action-btn"/>
+                <Hyperlink text="Already have an account? Login" onAction="#showLogin" styleClass="hyperlink"/>
             </VBox>
         </HBox>
+
 
     </HBox>
 </StackPane>

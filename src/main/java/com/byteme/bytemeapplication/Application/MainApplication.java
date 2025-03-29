@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class HelloApplication extends Application {
+public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/com/byteme/bytemeapplication/fxml/LoginView.fxml")));
