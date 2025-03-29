@@ -29,13 +29,13 @@ public class LoginController {
 
     @FXML
     private void showSignUp() {
-        animatePanes(0.25, 0.75);
+        animatePanes(0.3125, 0.6875);
         fadeSignupForm(true);
     }
 
     @FXML
     private void showLogin() {
-        animatePanes(0.75, 0.25);
+        animatePanes(0.6875, 0.3125);
         fadeSignupForm(false);
     }
 
