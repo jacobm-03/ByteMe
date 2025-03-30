@@ -14,24 +14,31 @@
         <!-- LOGIN PANEL -->
         <HBox fx:id="loginPane" alignment="CENTER" styleClass="login-pane" prefWidth="550" spacing="20">
             <VBox alignment="CENTER" spacing="20">
+
                 <Label text="ByteMe" styleClass="logo"/>
-                <Label text="Login to Your Account" styleClass="header"/>
-                <Label text="Login using social networks" styleClass="subheader"/>
 
-                <HBox spacing="10" alignment="CENTER">
-                    <Button text="f" styleClass="social facebook"/>
-                    <Button text="G+" styleClass="social google"/>
-                    <Button text="in" styleClass="social linkedin"/>
-                </HBox>
+                <!-- LOGIN FORM to fade -->
+                <VBox fx:id="loginForm" spacing="10" opacity="1" visible="true">
+                    <Label text="Login to Your Account" styleClass="header"/>
+                    <Label text="Login using social networks" styleClass="subheader"/>
 
-                <Label text="OR" styleClass="or-divider"/>
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button text="f" styleClass="social facebook"/>
+                        <Button text="G+" styleClass="social google"/>
+                        <Button text="in" styleClass="social linkedin"/>
+                    </HBox>
 
-                <TextField fx:id="loginEmail" promptText="Email" styleClass="input-field"/>
-                <PasswordField fx:id="loginPassword" promptText="Password" styleClass="input-field"/>
-                <Button text="Sign In" onAction="#showLogin" styleClass="action-btn"/>
+                    <Label text="OR" styleClass="or-divider"/>
+                    <TextField fx:id="loginEmail" promptText="Email" styleClass="input-field"/>
+                    <PasswordField fx:id="loginPassword" promptText="Password" styleClass="input-field"/>
+                </VBox>
 
+                <!-- Leave button always visible -->
+                <Button text="Sign In" onAction="#handleLoginAndSwitch" styleClass="action-btn"/>
+                <Hyperlink text="Don't have an account? Sign Up" onAction="#showSignUp" styleClass="hyperlink"/>
             </VBox>
         </HBox>
+
 
         <!-- SIGNUP PANEL -->
         <HBox fx:id="signupPane" alignment="CENTER" styleClass="signup-pane" prefWidth="250" spacing="20">
@@ -45,6 +52,18 @@
                     <TextField fx:id="lastNameField" promptText="Last Name" styleClass="input-field"/>
                     <TextField fx:id="signupEmailField" promptText="Email" styleClass="input-field"/>
                     <PasswordField fx:id="signupPasswordField" promptText="Password" styleClass="input-field"/>
+                    <!-- Password Requirements in Two Rows -->
+                    <VBox spacing="5">
+                        <HBox spacing="10" alignment="CENTER">
+                            <Label fx:id="lengthCheck" text="✗ 6 characters minimum" style="-fx-text-fill: red;"/>
+                            <Label fx:id="uppercaseCheck" text="✗ One uppercase letter" style="-fx-text-fill: red;"/>
+                        </HBox>
+                        <HBox spacing="10" alignment="CENTER">
+                            <Label fx:id="numberCheck" text="✗ One number" style="-fx-text-fill: red;"/>
+                            <Label fx:id="specialCharCheck" text="✗ One special character (!@#$%^&amp;*)" style="-fx-text-fill: red;"/>
+                        </HBox>
+                    </VBox>
+
                     <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" styleClass="input-field"/>
                 </VBox>
 
