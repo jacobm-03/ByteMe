@@ -16,6 +16,12 @@ import java.sql.SQLException;
 import java.util.Random;
 import javafx.scene.control.Label;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.Node;
+import javafx.event.ActionEvent;
+
 
 public class LoginController {
 
@@ -37,9 +43,9 @@ public class LoginController {
 
 
     @FXML
-    private void handleLoginAndSwitch() {
+    private void handleLoginAndSwitch(ActionEvent event) {
         if (!loginForm.isVisible()) {
-            showLogin();  // If form was hidden, show it
+            showLogin();
             return;
         }
 
@@ -51,7 +57,6 @@ public class LoginController {
             return;
         }
 
-
         try (Connection conn = DatabaseConnection.getInstance()) {
             String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -60,8 +65,7 @@ public class LoginController {
 
             var rs = stmt.executeQuery();
             if (rs.next()) {
-                showAlert("✅ Login successful! Welcome, " + rs.getString("firstname") + "!");
-                // TODO: navigate to home screen if needed
+                goToHome(event); // ← navigate to home
             } else {
                 showAlert("❌ Invalid email or password.");
             }
@@ -197,13 +201,14 @@ public class LoginController {
 
 
     @FXML
-    private void handleSignUpAndSwitch() {
+    private void handleSignUpAndSwitch(ActionEvent event) {
         // Check if form is currently visible
         if (!signupForm.isVisible()) {
             showSignUp();  // Animate & reveal form
         } else {
             if (handleSignUp()) {
                 showLogin(); // Only transition if sign-up successful
+                goToHome(event);
             }
         }
     }
@@ -224,6 +229,19 @@ public class LoginController {
         signupEmailField.clear();
         signupPasswordField.clear();
         confirmPasswordField.clear();
+    }
+
+    private void goToHome(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/byteme/bytemeapplication/fxml/HomeView.fxml"));
+            Scene homeScene = new Scene(loader.load());
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(homeScene);
+            stage.setTitle("Home - ByteMe");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

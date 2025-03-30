@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.byteme.bytemeapplication.Controllers.HomeController"
+           style="-fx-background-color: #f8f8ff;">
+
+    <Label text="🏠 Welcome to ByteMe Home!" style="-fx-font-size: 24px;"/>
+
+    <HBox fx:id="container" prefWidth="800" prefHeight="600">
+    </HBox>
+</StackPane>
