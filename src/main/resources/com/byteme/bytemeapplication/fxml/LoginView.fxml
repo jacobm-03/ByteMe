@@ -20,15 +20,19 @@
                 <!-- LOGIN FORM to fade -->
                 <VBox fx:id="loginForm" spacing="10" opacity="1" visible="true">
                     <Label text="Login to Your Account" styleClass="header"/>
-                    <Label text="Login using social networks" styleClass="subheader"/>
 
-                    <HBox spacing="10" alignment="CENTER">
-                        <Button text="f" styleClass="social facebook"/>
-                        <Button text="G+" styleClass="social google"/>
-                        <Button text="in" styleClass="social linkedin"/>
-                    </HBox>
+                    <VBox spacing="10" alignment="CENTER">
+                        <Label text="Login using social networks" styleClass="subheader"/>
 
-                    <Label text="OR" styleClass="or-divider"/>
+                        <HBox spacing="10" alignment="CENTER">
+                            <Button text="f" styleClass="social facebook"/>
+                            <Button text="G+" styleClass="social google"/>
+                            <Button text="in" styleClass="social linkedin"/>
+                        </HBox>
+
+                        <Label text="OR" styleClass="or-divider"/>
+                    </VBox>
+
                     <TextField fx:id="loginEmail" promptText="Email" styleClass="input-field"/>
                     <PasswordField fx:id="loginPassword" promptText="Password" styleClass="input-field"/>
                 </VBox>
