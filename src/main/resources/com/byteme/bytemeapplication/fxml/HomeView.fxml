@@ -3,26 +3,22 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.byteme.bytemeapplication.Controllers.HomeController"
            stylesheets="@../css/style.css"
-           style="-fx-background-color: #f2eaff; -fx-padding: 20;"> <!-- Add padding to create margin around the page -->
+           style="-fx-background-color: #f2eaff; -fx-padding: 20;">
 
-    <!-- Outer VBox to center and constrain width -->
     <VBox fx:id="container" prefWidth="1200" prefHeight="600">
+
         <!-- NAVBAR PANEL -->
         <HBox spacing="30" alignment="CENTER_LEFT"
               style="-fx-background-color: white; -fx-padding: 15 30; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 3);">
 
-            <!-- LOGO -->
-            <VBox spacing="2">
-                <Label text="ByteMe" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-font-family: 'Segoe UI';"/>
-                <Label text="AI Tutor" style="-fx-font-size: 11px; -fx-text-fill: #888; -fx-font-family: 'Segoe UI';"/>
-            </VBox>
 
-            <!-- NAVIGATION -->
             <!-- NAVIGATION -->
             <HBox spacing="80" alignment="CENTER_LEFT" style="-fx-padding: 0 0 0 50;">
                 <Label fx:id="navHome" text="Home" onMouseClicked="#handleNavClick" styleClass="nav-label"/>
@@ -31,9 +27,6 @@
                 <Label fx:id="navProfile" text="Profile" onMouseClicked="#handleNavClick" styleClass="nav-label"/>
             </HBox>
 
-
-
-            <!-- PUSH BUTTON TO RIGHT -->
             <Region fx:id="spacer" HBox.hgrow="ALWAYS"/>
             <Button text="Get Started"
                     style="-fx-background-color: #e4d6ff; -fx-text-fill: #2e2e2e; -fx-font-size: 13px; -fx-font-family: 'Segoe UI'; -fx-background-radius: 20; -fx-padding: 6 18;"/>

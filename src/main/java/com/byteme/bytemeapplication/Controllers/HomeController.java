@@ -11,4 +11,8 @@ public class HomeController {
     private void handleNavClick() {
         System.out.println("Navigation label clicked.");
     }
+
+
+
+
 }

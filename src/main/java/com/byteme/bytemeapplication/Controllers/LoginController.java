@@ -148,14 +148,14 @@ public class LoginController {
 
     @FXML
     private void showSignUp() {
-        animatePanes(0.3, 0.6);
+        animatePanes(0.33333, 0.66667);
         fadeSignupForm(true);
         fadeLoginForm(false);  // Hide login form
     }
 
     @FXML
     private void showLogin() {
-        animatePanes(0.6, 0.3);
+        animatePanes(0.66667, 0.33333);
         fadeSignupForm(false);
         fadeLoginForm(true);   // Show login form
     }

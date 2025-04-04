@@ -3,6 +3,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <StackPane fx:id="root" xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
@@ -15,10 +17,16 @@
         <HBox fx:id="loginPane" alignment="CENTER" styleClass="login-pane" prefWidth="600" spacing="20">
             <VBox alignment="CENTER" spacing="20">
 
-                <Label text="ByteMe" styleClass="logo"/>
+
+                <ImageView fitHeight="250" preserveRatio="true" smooth="true">
+                    <image>
+                        <Image url="@../images/Logo.png"/>
+                    </image>
+                </ImageView>
+
 
                 <!-- LOGIN FORM to fade -->
-                <VBox fx:id="loginForm" spacing="10" opacity="1" visible="true">
+                <VBox fx:id="loginForm" spacing="10" opacity="1" visible="true" alignment="CENTER">
                     <Label text="Login to Your Account" styleClass="header"/>
 
                     <VBox spacing="10" alignment="CENTER">
