@@ -2,14 +2,49 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
 
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.byteme.bytemeapplication.Controllers.HomeController"
-           style="-fx-background-color: #f8f8ff;">
+           stylesheets="@../css/style.css"
+           style="-fx-background-color: #f2eaff; -fx-padding: 20;"> <!-- Add padding to create margin around the page -->
 
-    <Label text="🏠 Welcome to ByteMe Home!" style="-fx-font-size: 24px;"/>
+    <!-- Outer VBox to center and constrain width -->
+    <VBox fx:id="container" prefWidth="1200" prefHeight="600">
+        <!-- NAVBAR PANEL -->
+        <HBox spacing="30" alignment="CENTER_LEFT"
+              style="-fx-background-color: white; -fx-padding: 15 30; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 3);">
 
-    <HBox fx:id="container" prefWidth="800" prefHeight="600">
-    </HBox>
+            <!-- LOGO -->
+            <VBox spacing="2">
+                <Label text="ByteMe" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-font-family: 'Segoe UI';"/>
+                <Label text="AI Tutor" style="-fx-font-size: 11px; -fx-text-fill: #888; -fx-font-family: 'Segoe UI';"/>
+            </VBox>
+
+            <!-- NAVIGATION -->
+            <!-- NAVIGATION -->
+            <HBox spacing="80" alignment="CENTER_LEFT" style="-fx-padding: 0 0 0 50;">
+                <Label fx:id="navHome" text="Home" onMouseClicked="#handleNavClick" styleClass="nav-label"/>
+                <Label fx:id="navCourses" text="Courses" onMouseClicked="#handleNavClick" styleClass="nav-label"/>
+                <Label fx:id="navProgress" text="Progress" onMouseClicked="#handleNavClick" styleClass="nav-label"/>
+                <Label fx:id="navProfile" text="Profile" onMouseClicked="#handleNavClick" styleClass="nav-label"/>
+            </HBox>
+
+
+
+            <!-- PUSH BUTTON TO RIGHT -->
+            <Region fx:id="spacer" HBox.hgrow="ALWAYS"/>
+            <Button text="Get Started"
+                    style="-fx-background-color: #e4d6ff; -fx-text-fill: #2e2e2e; -fx-font-size: 13px; -fx-font-family: 'Segoe UI'; -fx-background-radius: 20; -fx-padding: 6 18;"/>
+        </HBox>
+
+        <!-- MAIN CONTENT -->
+        <VBox alignment="CENTER" spacing="25">
+            <Label text="*Insert Inspiring Quote*" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-font-family: 'Segoe UI';"/>
+            <Button text="Start creating custom courses →"
+                    style="-fx-background-color: #a799ff; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-family: 'Segoe UI'; -fx-background-radius: 20px; -fx-padding: 10 25;"/>
+        </VBox>
+
+    </VBox>
 </StackPane>

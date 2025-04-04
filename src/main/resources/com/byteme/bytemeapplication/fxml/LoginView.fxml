@@ -9,10 +9,10 @@
            fx:controller="com.byteme.bytemeapplication.Controllers.LoginController"
            stylesheets="@../css/style.css">
 
-    <HBox fx:id="container" prefWidth="800" prefHeight="600">
+    <HBox fx:id="container" prefWidth="900" prefHeight="600">
 
         <!-- LOGIN PANEL -->
-        <HBox fx:id="loginPane" alignment="CENTER" styleClass="login-pane" prefWidth="550" spacing="20">
+        <HBox fx:id="loginPane" alignment="CENTER" styleClass="login-pane" prefWidth="600" spacing="20">
             <VBox alignment="CENTER" spacing="20">
 
                 <Label text="ByteMe" styleClass="logo"/>
@@ -52,7 +52,7 @@
 
 
         <!-- SIGNUP PANEL -->
-        <HBox fx:id="signupPane" alignment="CENTER" styleClass="signup-pane" prefWidth="250" spacing="20">
+        <HBox fx:id="signupPane" alignment="CENTER" styleClass="signup-pane" prefWidth="300" spacing="20">
             <VBox alignment="CENTER" spacing="20">
                 <Label text="New Here?" styleClass="header"/>
                 <Label text="Sign up and discover a great amount of new opportunities!" wrapText="true" styleClass="signup-subheader"/>

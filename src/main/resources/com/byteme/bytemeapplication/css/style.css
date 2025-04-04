@@ -111,3 +111,62 @@
     -fx-background-color: #0077b5;
 }
 
+/* 🌐 Nav Bar Items */
+.nav-label {
+    -fx-font-size: 20px;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #1e1e1e;
+    -fx-padding: 6 10;
+    -fx-font-weight: 780;
+    -fx-cursor: hand;
+    -fx-background-radius: 8;
+    -fx-transition: all 0.3s ease;
+}
+
+.nav-label:hover {
+    -fx-text-fill: #7a5fff;
+    -fx-underline: true;
+    -fx-background-color: rgba(164, 148, 255, 0.1);
+}
+
+.nav-label.active {
+    -fx-text-fill: #7a5fff;
+    -fx-underline: true;
+}
+
+/* 💡 CTA Button */
+.cta-btn {
+    -fx-background-color: #e4d6ff;
+    -fx-text-fill: #2e2e2e;
+    -fx-font-size: 14px;
+    -fx-padding: 6 18;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+}
+
+.cta-btn:hover {
+    -fx-background-color: #d1c1ff;
+}
+
+/* 💬 Hero Section */
+.hero-quote {
+    -fx-font-size: 24px;
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.hero-btn {
+    -fx-background-color: #a799ff;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-family: "Segoe UI";
+    -fx-padding: 12 30;
+    -fx-background-radius: 25;
+    -fx-cursor: hand;
+}
+
+.hero-btn:hover {
+    -fx-background-color: #8e88f5;
+}
+
