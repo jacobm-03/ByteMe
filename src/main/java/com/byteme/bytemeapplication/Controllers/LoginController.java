@@ -22,6 +22,9 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.event.ActionEvent;
 
+import javafx.scene.control.Button;
+
+
 
 public class LoginController {
 
@@ -39,6 +42,17 @@ public class LoginController {
 
     @FXML private Label lengthCheck, uppercaseCheck, numberCheck, specialCharCheck;
 
+    @FXML private TextField visibleLoginPassword;
+    @FXML private Button togglePasswordVisibility;
+    private boolean isPasswordVisible = false;
+
+    @FXML private TextField visibleSignupPasswordField;
+    @FXML private TextField visibleConfirmPasswordField;
+    @FXML private Button toggleSignupPassword;
+    @FXML private Button toggleConfirmPassword;
+
+    private boolean isSignupPasswordVisible = false;
+    private boolean isConfirmPasswordVisible = false;
 
 
 
@@ -91,6 +105,11 @@ public class LoginController {
         signupPasswordField.textProperty().addListener((observable, oldValue, newValue) -> {
             validatePassword(newValue);
         });
+        visibleLoginPassword.textProperty().bindBidirectional(loginPassword.textProperty());
+
+        visibleSignupPasswordField.textProperty().bindBidirectional(signupPasswordField.textProperty());
+        visibleConfirmPasswordField.textProperty().bindBidirectional(confirmPasswordField.textProperty());
+
     }
 
     private void validatePassword(String password) {
@@ -110,6 +129,18 @@ public class LoginController {
     private void updateCheckLabel(Label label, boolean condition, String text) {
         label.setText((condition ? "✔" : "✗") + " " + text);
         label.setStyle("-fx-text-fill: " + (condition ? "green" : "red"));
+    }
+
+    @FXML
+    private void togglePasswordVisibility() {
+        isPasswordVisible = !isPasswordVisible;
+        loginPassword.setVisible(!isPasswordVisible);
+        loginPassword.setManaged(!isPasswordVisible);
+        visibleLoginPassword.setVisible(isPasswordVisible);
+        visibleLoginPassword.setManaged(isPasswordVisible);
+
+        togglePasswordVisibility.setText(isPasswordVisible ? "🙈" : "👁");
+
     }
 
 
@@ -197,6 +228,8 @@ public class LoginController {
             showAlert("❌ Database error: " + e.getMessage());
             return false;
         }
+
+
     }
 
 
@@ -244,5 +277,26 @@ public class LoginController {
         }
     }
 
+    @FXML
+    private void toggleSignupPasswordVisibility() {
+        isSignupPasswordVisible = !isSignupPasswordVisible;
+        signupPasswordField.setVisible(!isSignupPasswordVisible);
+        signupPasswordField.setManaged(!isSignupPasswordVisible);
+        visibleSignupPasswordField.setVisible(isSignupPasswordVisible);
+        visibleSignupPasswordField.setManaged(isSignupPasswordVisible);
+
+        toggleSignupPassword.setText(isSignupPasswordVisible ? "🙈" : "👁");
+    }
+
+    @FXML
+    private void toggleConfirmPasswordVisibility() {
+        isConfirmPasswordVisible = !isConfirmPasswordVisible;
+        confirmPasswordField.setVisible(!isConfirmPasswordVisible);
+        confirmPasswordField.setManaged(!isConfirmPasswordVisible);
+        visibleConfirmPasswordField.setVisible(isConfirmPasswordVisible);
+        visibleConfirmPasswordField.setManaged(isConfirmPasswordVisible);
+
+        toggleConfirmPassword.setText(isConfirmPasswordVisible ? "🙈" : "👁");
+    }
 
 }

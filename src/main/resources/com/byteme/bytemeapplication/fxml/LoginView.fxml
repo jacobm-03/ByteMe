@@ -34,7 +34,14 @@
                     </VBox>
 
                     <TextField fx:id="loginEmail" promptText="Email" styleClass="input-field"/>
-                    <PasswordField fx:id="loginPassword" promptText="Password" styleClass="input-field"/>
+                    <StackPane maxWidth="Infinity">
+                        <PasswordField fx:id="loginPassword" promptText="Password" styleClass="input-field"/>
+                        <TextField fx:id="visibleLoginPassword" promptText="Password" styleClass="input-field" visible="false" managed="false"/>
+                        <Button fx:id="togglePasswordVisibility" text="👁" onAction="#togglePasswordVisibility"
+                                style="-fx-background-color: transparent; -fx-cursor: hand; -fx-padding: 0 10 0 0;"
+                                StackPane.alignment="CENTER_RIGHT"/>
+                    </StackPane>
+
                 </VBox>
 
                 <!-- Leave button always visible -->
@@ -55,7 +62,16 @@
                     <TextField fx:id="firstNameField" promptText="First Name" styleClass="input-field"/>
                     <TextField fx:id="lastNameField" promptText="Last Name" styleClass="input-field"/>
                     <TextField fx:id="signupEmailField" promptText="Email" styleClass="input-field"/>
-                    <PasswordField fx:id="signupPasswordField" promptText="Password" styleClass="input-field"/>
+                    <StackPane maxWidth="Infinity">
+                        <PasswordField fx:id="signupPasswordField" promptText="Password" styleClass="input-field"/>
+                        <TextField fx:id="visibleSignupPasswordField" promptText="Password" styleClass="input-field" visible="false" managed="false"/>
+                        <Button fx:id="toggleSignupPassword" text="👁" onAction="#toggleSignupPasswordVisibility"
+                                style="-fx-background-color: transparent; -fx-cursor: hand; -fx-padding: 0 10 0 0;"
+                                StackPane.alignment="CENTER_RIGHT"/>
+                    </StackPane>
+
+
+
                     <!-- Password Requirements in Two Rows -->
                     <VBox spacing="5">
                         <HBox spacing="10" alignment="CENTER">
@@ -68,16 +84,20 @@
                         </HBox>
                     </VBox>
 
-                    <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" styleClass="input-field"/>
+                    <StackPane maxWidth="Infinity">
+                        <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" styleClass="input-field"/>
+                        <TextField fx:id="visibleConfirmPasswordField" promptText="Confirm Password" styleClass="input-field" visible="false" managed="false"/>
+                        <Button fx:id="toggleConfirmPassword" text="👁" onAction="#toggleConfirmPasswordVisibility"
+                                style="-fx-background-color: transparent; -fx-cursor: hand; -fx-padding: 0 10 0 0;"
+                                StackPane.alignment="CENTER_RIGHT"/>
+                    </StackPane>
+
                 </VBox>
 
 
                 <Button text="Sign Up" onAction="#handleSignUpAndSwitch" styleClass="action-btn"/>
 
-
             </VBox>
         </HBox>
-
-
     </HBox>
 </StackPane>
