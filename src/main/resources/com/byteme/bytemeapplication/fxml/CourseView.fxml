@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.byteme.bytemeapplication.Controllers.CourseController"
+           style="-fx-background-color: #f2eaff;"
+           stylesheets="@../css/style.css">
+
+    <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 40 0 0 0;">
+
+        <!-- Title -->
+        <Label text="My Subjects" style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-font-family: 'Segoe UI';"/>
+
+        <!-- Sad face emoji -->
+        <Label text="☹" style="-fx-font-size: 36px;"/>
+
+        <!-- Message -->
+        <Label text="Seems you haven't added any subjects"
+               style="-fx-font-size: 14px; -fx-font-family: 'Segoe UI';"/>
+        <Label text="Click the plus to add a subject"
+               style="-fx-font-size: 13px; -fx-font-family: 'Segoe UI'; -fx-text-fill: #333333;"/>
+
+        <!-- Plus button -->
+        <Button fx:id="addSubjectBtn" text="+" onAction="#handleAddSubject"
+                style="-fx-font-size: 24px; -fx-background-color: #a799ff; -fx-text-fill: white; -fx-pref-width: 80px; -fx-pref-height: 80px; -fx-background-radius: 20px; -fx-effect: dropshadow(three-pass-box, rgba(167, 153, 255, 0.4), 8, 0, 0, 4);"/>
+    </VBox>
+</StackPane>

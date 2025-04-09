@@ -16,7 +16,14 @@
 
         <!-- NAVBAR PANEL -->
         <HBox spacing="30" alignment="CENTER_LEFT"
-              style="-fx-background-color: white; -fx-padding: 15 30; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 3);">
+              style="-fx-background-color: white; -fx-padding: 8 30; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 3);">
+
+
+            <ImageView fitHeight="60" preserveRatio="true" smooth="true">
+                <image>
+                    <Image url="@../images/BytemeNW.png"/>
+                </image>
+            </ImageView>
 
 
             <!-- NAVIGATION -->

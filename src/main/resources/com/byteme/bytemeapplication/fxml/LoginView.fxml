@@ -18,9 +18,9 @@
             <VBox alignment="CENTER" spacing="20">
 
 
-                <ImageView fitHeight="250" preserveRatio="true" smooth="true">
+                <ImageView fitHeight="240" preserveRatio="true" smooth="true">
                     <image>
-                        <Image url="@../images/Logo.png"/>
+                        <Image url="@../images/BytemeLogo.png"/>
                     </image>
                 </ImageView>
 
