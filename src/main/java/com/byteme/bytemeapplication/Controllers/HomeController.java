@@ -2,19 +2,34 @@ package com.byteme.bytemeapplication.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-import javafx.scene.Node;
-import java.net.URL;
+import javafx.scene.layout.StackPane;
+
 import java.io.IOException;
+import java.net.URL;
 
 public class HomeController {
 
+    @FXML private Label navHome, navCourses, navProgress, navProfile;
+
+    @FXML private StackPane contentArea; // 🔄 The central content container in HomeView.fxml
+
     @FXML
-    private void handleNavClick(MouseEvent event) throws IOException {
+    private void initialize() {
+        // Load default content (e.g., Home)
+        try {
+            loadContent("/com/byteme/bytemeapplication/fxml/HomeContent.fxml"); // You can extract the quote/button section into this optional sub-FXML
+        } catch (IOException e) {
+            System.out.println("❌ Failed to load default Home content");
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleNavClick(MouseEvent event) {
         Label clickedLabel = (Label) event.getSource();
         String labelText = clickedLabel.getText();
         System.out.println("Nav clicked: " + labelText);
@@ -23,10 +38,10 @@ public class HomeController {
 
         switch (labelText) {
             case "Home":
-                fxmlFile = "/com/byteme/bytemeapplication/fxml/HomeView.fxml";
+                fxmlFile = "/com/byteme/bytemeapplication/fxml/HomeContent.fxml";
                 break;
             case "Courses":
-                fxmlFile = "/com/byteme/bytemeapplication/fxml/CourseView.fxml"; // ✅ Fix this
+                fxmlFile = "/com/byteme/bytemeapplication/fxml/CourseView.fxml";
                 break;
             case "Progress":
                 fxmlFile = "/com/byteme/bytemeapplication/fxml/ProgressView.fxml";
@@ -39,18 +54,24 @@ public class HomeController {
                 return;
         }
 
-        URL url = getClass().getClassLoader().getResource(fxmlFile.substring(1));
-        System.out.println("Resolved URL: " + url); // ✅ Check this
+        try {
+            loadContent(fxmlFile);
+        } catch (IOException e) {
+            System.out.println("❌ Error loading content for " + labelText);
+            e.printStackTrace();
+        }
+    }
+
+    private void loadContent(String fxmlPath) throws IOException {
+        URL url = getClass().getResource(fxmlPath);
+        System.out.println("Resolved URL: " + url);
 
         if (url == null) {
-            System.out.println("❌ Could not load FXML file: " + fxmlFile);
-            return;
+            throw new IOException("FXML file not found at path: " + fxmlPath);
         }
 
-        FXMLLoader loader = new FXMLLoader(url);
-        Parent root = loader.load();
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
+        Parent content = FXMLLoader.load(url);
+        contentArea.getChildren().clear();
+        contentArea.getChildren().add(content);
     }
 }

@@ -18,13 +18,11 @@
         <HBox spacing="30" alignment="CENTER_LEFT"
               style="-fx-background-color: white; -fx-padding: 8 30; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 3);">
 
-
             <ImageView fitHeight="60" preserveRatio="true" smooth="true">
                 <image>
                     <Image url="@../images/BytemeNW.png"/>
                 </image>
             </ImageView>
-
 
             <!-- NAVIGATION -->
             <HBox spacing="80" alignment="CENTER_LEFT" style="-fx-padding: 0 0 0 50;">
@@ -39,12 +37,9 @@
                     style="-fx-background-color: #e4d6ff; -fx-text-fill: #2e2e2e; -fx-font-size: 13px; -fx-font-family: 'Segoe UI'; -fx-background-radius: 20; -fx-padding: 6 18;"/>
         </HBox>
 
-        <!-- MAIN CONTENT -->
-        <VBox alignment="CENTER" spacing="25">
-            <Label text="*Insert Inspiring Quote*" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-font-family: 'Segoe UI';"/>
-            <Button text="Start creating custom courses →"
-                    style="-fx-background-color: #a799ff; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-family: 'Segoe UI'; -fx-background-radius: 20px; -fx-padding: 10 25;"/>
-        </VBox>
+        <!-- 🔽 MAIN CONTENT SLOT -->
+        <StackPane fx:id="contentArea" alignment="CENTER" VBox.vgrow="ALWAYS"/>
+        <!-- No hardcoded quote here anymore, this is loaded from HomeContent.fxml -->
 
     </VBox>
 </StackPane>

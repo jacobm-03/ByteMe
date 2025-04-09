@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.byteme.bytemeapplication.Controllers.HomeContentController"
+      alignment="CENTER"
+      spacing="25">
+
+    <Label fx:id="quoteLabel"
+           text="*Insert Inspiring Quote*"
+           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-font-family: 'Segoe UI';"/>
+
+    <Button text="Start creating custom courses →"
+            style="-fx-background-color: #a799ff; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-family: 'Segoe UI'; -fx-background-radius: 20px; -fx-padding: 10 25;"/>
+</VBox>
