@@ -299,4 +299,21 @@ public class LoginController {
         toggleConfirmPassword.setText(isConfirmPasswordVisible ? "🙈" : "👁");
     }
 
+    @FXML
+    private void handleGoogleLogin(ActionEvent event) {
+        System.out.println("Google button clicked!");
+    }
+
+    @FXML
+    private void handleFacebookLogin(ActionEvent event) {
+        System.out.println("Facebook button clicked!");
+    }
+
+    @FXML
+    private void handleInstagramLogin(ActionEvent event) {
+        System.out.println("Instagram button clicked!");
+    }
+
+
 }
+

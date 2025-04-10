@@ -33,9 +33,45 @@
                         <Label text="Login using social networks" styleClass="subheader"/>
 
                         <HBox spacing="10" alignment="CENTER">
-                            <Button text="f" styleClass="social facebook"/>
-                            <Button text="G+" styleClass="social google"/>
-                            <Button text="in" styleClass="social linkedin"/>
+                            <!-- Google Button -->
+                            <Button fx:id="googleBtn"
+                                    onAction="#handleGoogleLogin"
+                                    focusTraversable="true"
+                                    style="-fx-background-color: transparent; -fx-cursor: hand;">
+                                <graphic>
+                                    <ImageView fitHeight="24" fitWidth="24" preserveRatio="true" smooth="true">
+                                        <image>
+                                            <Image url="@../images/GoogleLogo.png"/>
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                            <!-- Facebook Button -->
+                            <Button fx:id="facebookBtn"
+                                    onAction="#handleFacebookLogin"
+                                    focusTraversable="true"
+                                    style="-fx-background-color: transparent; -fx-cursor: hand;">
+                                <graphic>
+                                    <ImageView fitHeight="24" fitWidth="24" preserveRatio="true" smooth="true">
+                                        <image>
+                                            <Image url="@../images/FacebookLogo.png"/>
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                            <!-- Instagram Button -->
+                            <Button fx:id="instagramBtn"
+                                    onAction="#handleInstagramLogin"
+                                    focusTraversable="true"
+                                    style="-fx-background-color: transparent; -fx-cursor: hand;">
+                                <graphic>
+                                    <ImageView fitHeight="24" fitWidth="24" preserveRatio="true" smooth="true">
+                                        <image>
+                                            <Image url="@../images/InstagramLogo.png"/>
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
                         </HBox>
 
                         <Label text="OR" styleClass="or-divider"/>
