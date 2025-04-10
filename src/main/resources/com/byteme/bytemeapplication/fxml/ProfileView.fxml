@@ -83,6 +83,11 @@
             </image>
         </ImageView>
 
-        <Button text="+" style="-fx-background-radius: 30; -fx-font-size: 20px; -fx-padding: 10 20; -fx-background-color: #b99ff2; -fx-text-fill: white;" />
+        <Button fx:id="goToCoursesBtn"
+                onAction="#handleGoToCourses"
+                text="+"
+                style="-fx-background-color: #a799ff; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-family: 'Segoe UI';
+                 -fx-background-radius: 20px; -fx-padding: 10 35;"/>
+
     </VBox>
 </VBox>

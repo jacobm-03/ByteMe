@@ -41,4 +41,25 @@ public class ProfileController {
         editProfileBtn.setOnAction(e -> System.out.println("Edit Profile clicked!"));
         progressBtn.setOnAction(e -> System.out.println("Progress clicked!"));
     }
+
+    @FXML
+    private Button goToCoursesBtn;
+
+    @FXML
+    private void handleGoToCourses(ActionEvent event) {
+        // Simulate a virtual "Courses" button click by calling HomeController
+        try {
+            Node courseView = FXMLLoader.load(getClass().getResource("/com/byteme/bytemeapplication/fxml/CourseView.fxml"));
+
+            Node contentArea = goToCoursesBtn.getScene().lookup("#contentArea");
+            if (contentArea instanceof Pane pane) {
+                pane.getChildren().clear();
+                pane.getChildren().add(courseView);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
