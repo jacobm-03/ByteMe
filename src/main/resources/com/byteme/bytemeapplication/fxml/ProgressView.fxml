@@ -1,14 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<AnchorPane
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.byteme.bytemeapplication.Controllers.ProgressController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="400.0" prefWidth="600.0"
+            style="-fx-background-color: white;">
 
+    <VBox spacing="20" layoutX="50" layoutY="30">
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="📊 Progress Analysis" style="-fx-font-size: 20px;"/>
+            <ComboBox fx:id="subjectComboBox" promptText="Select Subject"/>
+        </HBox>
+        <HBox spacing="20">
+            <VBox style="-fx-border-color: gray; -fx-padding: 10; -fx-background-color: white;" alignment="CENTER">
+                <Label text="Average" style="-fx-font-weight: bold"/>
+                <Label fx:id="averageLabel" style="-fx-font-size: 24px;"/>
+            </VBox>
+            <VBox style="-fx-border-color: gray; -fx-padding: 10; -fx-background-color: white;" alignment="CENTER">
+                <Label text="Quizzes Completed" style="-fx-font-weight: bold"/>
+                <Label fx:id="quizzesCompletedLabel" style="-fx-font-size: 24px;"/>
+            </VBox>
+            <VBox style="-fx-border-color: gray; -fx-padding: 10; -fx-background-color: white;" alignment="CENTER">
+                <Label text="Time per Question" style="-fx-font-weight: bold"/>
+                <Label fx:id="timePerQuestionLabel" style="-fx-font-size: 24px;"/>
+            </VBox>
+            <VBox style="-fx-border-color: gray; -fx-padding: 10; -fx-background-color: white;" alignment="CENTER">
+                <Label text="Streak" style="-fx-font-weight: bold"/>
+                <Label fx:id="streakLabel" style="-fx-font-size: 24px;"/>
+            </VBox>
+        </HBox>
+
+        <HBox spacing="20">
+            <LineChart fx:id="quizPerformanceChart" title="Quiz Performance"
+                       prefWidth="400" prefHeight="250">
+                <xAxis>
+                    <CategoryAxis label="Quiz"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Score"/>
+                </yAxis>
+            </LineChart>
+
+            <VBox spacing="5">
+                <Label text="Current Topic" style="-fx-font-weight: bold"/>
+                <Text fx:id="currentTopic"/>
+            </VBox>
+        </HBox>
+
+        <HBox spacing="20">
+            <VBox spacing="5" style="-fx-border-color: gray; -fx-padding: 10; -fx-background-color: white;" prefWidth="300">
+                <Label text="Strengths" style="-fx-font-weight: bold"/>
+                <ListView fx:id="strengthsList"/>
+            </VBox>
+            <VBox spacing="5" style="-fx-border-color: gray; -fx-padding: 10; -fx-background-color: white;" prefWidth="300">
+                <Label text="Weaknesses" style="-fx-font-weight: bold"/>
+                <ListView fx:id="weaknessesList"/>
+            </VBox>
+        </HBox>
+    </VBox>
 </AnchorPane>
