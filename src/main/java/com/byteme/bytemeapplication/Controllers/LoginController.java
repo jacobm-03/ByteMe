@@ -71,24 +71,35 @@ public class LoginController {
             return;
         }
 
-        try (Connection conn = DatabaseConnection.getInstance()) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        java.sql.ResultSet rs = null;
+
+        try {
+            conn = DatabaseConnection.getInstance();
             String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt = conn.prepareStatement(sql);
             stmt.setString(1, email);
             stmt.setString(2, password);
 
-            var rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             if (rs.next()) {
-                goToHome(event); // ← navigate to home
+                goToHome(event);
             } else {
                 showAlert("❌ Invalid email or password.");
             }
 
         } catch (SQLException e) {
             showAlert("❌ Database error: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+            } catch (SQLException e) {
+                System.err.println("❌ Failed to close resources: " + e.getMessage());
+            }
         }
     }
-
 
     private void fadeLoginForm(boolean show) {
         FadeTransition fade = new FadeTransition(Duration.millis(400), loginForm);

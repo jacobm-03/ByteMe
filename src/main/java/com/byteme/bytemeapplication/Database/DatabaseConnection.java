@@ -26,8 +26,12 @@ public class DatabaseConnection {
     }
 
     public static Connection getInstance() {
-        if (instance == null) {
-            new DatabaseConnection();
+        try {
+            if (instance == null || instance.isClosed()) {
+                new DatabaseConnection();
+            }
+        } catch (SQLException e) {
+            System.err.println("❌ Error checking DB connection: " + e.getMessage());
         }
         return instance;
     }
