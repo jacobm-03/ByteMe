@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 import javafx.concurrent.Task;
 
+import com.byteme.bytemeapplication.Utils.FileParser;
 
 
 import java.io.File;
@@ -60,19 +61,22 @@ public class SubjectDetailController {
             protected Void call() throws Exception {
                 int steps = 100;
                 for (int i = 1; i <= steps; i++) {
-                    Thread.sleep(15); // Simulate time taken to process each step
+                    Thread.sleep(30);
                     updateProgress(i, steps);
                     updateMessage("Uploading " + file.getName() + "... " + i + "%");
                 }
+
+                // Extract text after "upload"
+                String text = FileParser.extractTextFromPDF(file);
+                System.out.println("🧠 Extracted Content:\n" + text);
+
                 return null;
             }
         };
 
-        // Bind progress and status label to the task
         progressBar.progressProperty().bind(uploadTask.progressProperty());
         statusLabel.textProperty().bind(uploadTask.messageProperty());
 
-        // Optional: show complete message
         uploadTask.setOnSucceeded(e -> {
             statusLabel.textProperty().unbind();
             statusLabel.setText("✅ Upload complete: " + file.getName());
@@ -83,11 +87,10 @@ public class SubjectDetailController {
             statusLabel.setText("❌ Upload failed.");
         });
 
-        // Run the task in a background thread
-        Thread thread = new Thread(uploadTask);
-        thread.setDaemon(true); // Daemon thread exits when the app exits
-        thread.start();
+        new Thread(uploadTask).start();
     }
+
+
 
 
     private void showAlert(String message) {
