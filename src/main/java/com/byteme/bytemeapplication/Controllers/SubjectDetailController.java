@@ -1,17 +1,16 @@
 package com.byteme.bytemeapplication.Controllers;
 
+import com.byteme.bytemeapplication.Utils.FileParser;
+import com.byteme.bytemeapplication.Utils.OllamaClient;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.scene.layout.VBox;
-import javafx.concurrent.Task;
-
-import com.byteme.bytemeapplication.Utils.FileParser;
-
+import org.json.JSONObject;
 
 import java.io.File;
 
@@ -20,6 +19,7 @@ public class SubjectDetailController {
     @FXML private ProgressBar progressBar;
     @FXML private Label statusLabel;
     @FXML private VBox docBox;
+    @FXML private VBox quizContainer;
 
     @FXML
     private void initialize() {
@@ -44,16 +44,13 @@ public class SubjectDetailController {
                 new FileChooser.ExtensionFilter("Document Files", "*.pdf", "*.docx", "*.txt")
         );
 
-        // Get the stage from the docBox
         Stage stage = (Stage) docBox.getScene().getWindow();
-
         File file = fileChooser.showOpenDialog(stage);
+
         if (file != null) {
-            simulateUpload(file);
+            simulateUpload(file);  // ✅ Correct method name
         }
     }
-
-
 
     private void simulateUpload(File file) {
         Task<Void> uploadTask = new Task<>() {
@@ -61,14 +58,35 @@ public class SubjectDetailController {
             protected Void call() throws Exception {
                 int steps = 100;
                 for (int i = 1; i <= steps; i++) {
-                    Thread.sleep(30);
+                    Thread.sleep(15);
                     updateProgress(i, steps);
                     updateMessage("Uploading " + file.getName() + "... " + i + "%");
                 }
 
-                // Extract text after "upload"
-                String text = FileParser.extractTextFromPDF(file);
-                System.out.println("🧠 Extracted Content:\n" + text);
+                try {
+                    // ✅ Extract text
+                    String text = FileParser.extractTextFromPDF(file);
+                    if (text == null || text.trim().isEmpty()) {
+                        throw new Exception("No text extracted from file.");
+                    }
+
+                    // System.out.println("📄 Extracted Text:\n" + text); // 🔒 Commented out for now
+
+                    // ✅ Generate quiz via Ollama
+                    String json = OllamaClient.generateQuiz(text);
+                    System.out.println("🔁 Raw JSON:\n" + json);
+
+                    // ✅ Parse JSON and print quiz
+                    JSONObject obj = new JSONObject(json);
+                    String quiz = obj.getString("response");
+
+                    System.out.println("✅ Quiz Output:\n" + quiz);
+
+                } catch (Exception ex) {
+                    System.err.println("❌ Error generating quiz:");
+                    ex.printStackTrace();
+                    throw ex;
+                }
 
                 return null;
             }
@@ -79,7 +97,7 @@ public class SubjectDetailController {
 
         uploadTask.setOnSucceeded(e -> {
             statusLabel.textProperty().unbind();
-            statusLabel.setText("✅ Upload complete: " + file.getName());
+            statusLabel.setText("✅ Quiz printed in terminal.");
         });
 
         uploadTask.setOnFailed(e -> {
@@ -88,14 +106,5 @@ public class SubjectDetailController {
         });
 
         new Thread(uploadTask).start();
-    }
-
-
-
-
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText(message);
-        alert.show();
     }
 }
