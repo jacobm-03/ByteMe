@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.byteme.bytemeapplication.Controllers.AddSubjectController"
+           style="-fx-background-color: #f2eaff;"
+           alignment="CENTER">
+
+    <VBox spacing="20" alignment="TOP_CENTER" style="-fx-padding: 40;">
+        <!-- Back button aligned left using HBox -->
+        <HBox alignment="TOP_LEFT">
+            <Button text="← Back" onAction="#handleBack"
+                    style="-fx-background-color: #bca8ff; -fx-text-fill: white; -fx-background-radius: 20px; -fx-padding: 6 16;"/>
+        </HBox>
+
+        <Label text="Make it your way" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+        <Label text="Start personalizing your subject!" style="-fx-font-size: 14px;"/>
+        <HBox spacing="50" alignment="CENTER">
+            <!-- Subject Preview Tile -->
+            <StackPane fx:id="subjectTile" prefWidth="220" prefHeight="200"
+                       style="-fx-background-color: #1976D2; -fx-background-radius: 25px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+                <Label fx:id="tileLabel" text="Add Your Subjects!"
+                       style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+            </StackPane>
+
+            <!-- Input Fields -->
+            <VBox spacing="15">
+                <Label text="Subject" style="-fx-font-weight: bold;"/>
+                <TextField fx:id="subjectField" promptText="Enter subject name"
+                           onKeyReleased="#updateTilePreview"
+                           style="-fx-background-radius: 15px; -fx-pref-width: 250px;"/>
+
+                <Label text="Colour" style="-fx-font-weight: bold;"/>
+                <HBox spacing="12">
+                    <Circle fx:id="colorRed" radius="10" fill="red" onMouseClicked="#handleColorSelect"/>
+                    <Circle fx:id="colorOrange" radius="10" fill="orange" onMouseClicked="#handleColorSelect"/>
+                    <Circle fx:id="colorBlue" radius="10" fill="blue" onMouseClicked="#handleColorSelect"/>
+                    <Circle fx:id="colorTeal" radius="10" fill="teal" onMouseClicked="#handleColorSelect"/>
+                    <Circle fx:id="colorGreen" radius="10" fill="green" onMouseClicked="#handleColorSelect"/>
+                    <Circle fx:id="colorPurple" radius="10" fill="purple" onMouseClicked="#handleColorSelect"/>
+                </HBox>
+
+                <Button text="Create" onAction="#handleCreateSubject"
+                        style="-fx-background-color: #bca8ff; -fx-text-fill: white; -fx-background-radius: 20px; -fx-padding: 8 20;"/>
+            </VBox>
+        </HBox>
+    </VBox>
+</StackPane>

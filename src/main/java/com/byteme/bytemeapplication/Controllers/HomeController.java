@@ -16,26 +16,35 @@ import com.byteme.bytemeapplication.Models.User;
 
 public class HomeController {
 
+    private static HomeController instance; // 🔥 Allows global access
+
+    public HomeController() {
+        instance = this;
+    }
+
+    public static HomeController getInstance() {
+        return instance;
+    }
+
     @FXML private Label navHome, navCourses, navProgress, navProfile;
+    @FXML private StackPane contentArea; // The central container for dynamic swapping
 
-    @FXML private StackPane contentArea; // 🔄 The central content container in HomeView.fxml
     @FXML private Label userNameLabel;
-
 
     @FXML
     private void initialize() {
-        // Load default home content
         try {
+            User user = Session.getCurrentUser();
+            if (user != null) {
+                userNameLabel.setText(user.getFirstName().toLowerCase()); // or use full name
+            } else {
+                userNameLabel.setText("Guest");
+            }
+
             loadContent("/com/byteme/bytemeapplication/fxml/HomeContent.fxml");
         } catch (IOException e) {
             System.out.println("❌ Failed to load default Home content");
             e.printStackTrace();
-        }
-
-        // Set user's name
-        User currentUser = Session.getCurrentUser();
-        if (currentUser != null) {
-            userNameLabel.setText(currentUser.getFirstName());
         }
     }
 
@@ -73,7 +82,7 @@ public class HomeController {
         }
     }
 
-    private void loadContent(String fxmlPath) throws IOException {
+    public void loadContent(String fxmlPath) throws IOException {
         URL url = getClass().getResource(fxmlPath);
         System.out.println("Resolved URL: " + url);
 
