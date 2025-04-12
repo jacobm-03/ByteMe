@@ -33,8 +33,9 @@
             </HBox>
 
             <Region fx:id="spacer" HBox.hgrow="ALWAYS"/>
-            <Button text="Get Started"
-                    style="-fx-background-color: #e4d6ff; -fx-text-fill: #2e2e2e; -fx-font-size: 13px; -fx-font-family: 'Segoe UI'; -fx-background-radius: 20; -fx-padding: 6 18;"/>
+            <Label fx:id="userNameLabel"
+                   style="-fx-background-color: #e4d6ff; -fx-text-fill: #2e2e2e; -fx-font-size: 13px; -fx-font-family: 'Segoe UI'; -fx-background-radius: 20; -fx-padding: 6 18;" />
+
         </HBox>
 
         <!-- 🔽 MAIN CONTENT SLOT -->

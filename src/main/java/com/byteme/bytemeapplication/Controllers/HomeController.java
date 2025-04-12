@@ -10,21 +10,32 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.net.URL;
+import com.byteme.bytemeapplication.Helpers.Session;
+import com.byteme.bytemeapplication.Models.User;
+
 
 public class HomeController {
 
     @FXML private Label navHome, navCourses, navProgress, navProfile;
 
     @FXML private StackPane contentArea; // 🔄 The central content container in HomeView.fxml
+    @FXML private Label userNameLabel;
+
 
     @FXML
     private void initialize() {
-        // Load default content (e.g., Home)
+        // Load default home content
         try {
-            loadContent("/com/byteme/bytemeapplication/fxml/HomeContent.fxml"); // You can extract the quote/button section into this optional sub-FXML
+            loadContent("/com/byteme/bytemeapplication/fxml/HomeContent.fxml");
         } catch (IOException e) {
             System.out.println("❌ Failed to load default Home content");
             e.printStackTrace();
+        }
+
+        // Set user's name
+        User currentUser = Session.getCurrentUser();
+        if (currentUser != null) {
+            userNameLabel.setText(currentUser.getFirstName());
         }
     }
 
