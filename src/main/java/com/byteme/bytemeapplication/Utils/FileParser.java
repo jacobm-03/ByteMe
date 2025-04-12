@@ -7,14 +7,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class FileParser {
-
-    public static String extractTextFromPDF(File file) {
+    public static String extractTextFromPDF(File file) throws IOException {
         try (PDDocument document = PDDocument.load(file)) {
             PDFTextStripper stripper = new PDFTextStripper();
             return stripper.getText(document);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "❌ Failed to extract text from PDF.";
         }
     }
 }

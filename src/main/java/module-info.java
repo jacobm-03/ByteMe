@@ -7,6 +7,9 @@ module com.bytemeapplication {
     opens com.byteme.bytemeapplication.Controllers to javafx.fxml;
     requires java.sql; //
     requires org.apache.pdfbox;
+    requires org.json;
+    requires java.net.http;       // ✅ Add this line
+
 
 
     exports com.byteme.bytemeapplication.Application;

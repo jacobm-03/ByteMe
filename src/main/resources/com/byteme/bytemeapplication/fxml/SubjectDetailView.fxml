@@ -40,5 +40,7 @@
             <ProgressBar fx:id="progressBar" progress="0.0" style="-fx-accent: #bca8ff; -fx-pref-width: 800px;" />
             <Label fx:id="statusLabel" text="Waiting for file..." style="-fx-font-size: 14px;"/>
         </VBox>
+
+        <VBox fx:id="quizContainer" spacing="10" style="-fx-padding: 20;"/>
     </VBox>
 </StackPane>
