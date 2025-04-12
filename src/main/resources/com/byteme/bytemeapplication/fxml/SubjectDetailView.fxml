@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.byteme.bytemeapplication.Controllers.SubjectDetailController"
+           style="-fx-background-color: #f2eaff;">
+    <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 40;">
+        <Button text="← Back" onAction="#handleBack"
+                style="-fx-background-color: #bca8ff; -fx-text-fill: white; -fx-background-radius: 20px; -fx-padding: 6 16;"/>
+
+        <Label text="Make it your way" style="-fx-font-size: 26px; -fx-font-weight: bold;" />
+        <Label text="Extract Questions from" style="-fx-font-size: 14px;" />
+
+        <HBox spacing="30" alignment="CENTER">
+            <VBox alignment="CENTER" style="-fx-background-color: #bca8ff; -fx-padding: 25; -fx-background-radius: 20px;">
+                <Label text="📄" style="-fx-font-size: 30px;" />
+                <Label text="Doc" style="-fx-font-size: 16px;"/>
+            </VBox>
+            <VBox alignment="CENTER" style="-fx-background-color: #f3f3f3; -fx-padding: 25; -fx-background-radius: 20px;">
+                <Label text="✒" style="-fx-font-size: 30px;" />
+                <Label text="Text" style="-fx-font-size: 16px;"/>
+            </VBox>
+            <VBox alignment="CENTER" style="-fx-background-color: #f3f3f3; -fx-padding: 25; -fx-background-radius: 20px;">
+                <Label text="📷" style="-fx-font-size: 30px;" />
+                <Label text="Photo" style="-fx-font-size: 16px;"/>
+            </VBox>
+            <VBox alignment="CENTER" style="-fx-background-color: #f3f3f3; -fx-padding: 25; -fx-background-radius: 20px;">
+                <Label text="🧩" style="-fx-font-size: 30px;" />
+                <Label text="Other" style="-fx-font-size: 16px;"/>
+            </VBox>
+        </HBox>
+
+        <VBox alignment="CENTER" style="-fx-padding: 40; -fx-spacing: 10;">
+            <ProgressBar progress="0.99" style="-fx-accent: #bca8ff; -fx-pref-width: 800px;" />
+            <Label text="Uploading..." style="-fx-font-size: 14px;"/>
+        </VBox>
+    </VBox>
+</StackPane>

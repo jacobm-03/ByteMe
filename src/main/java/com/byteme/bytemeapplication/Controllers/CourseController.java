@@ -76,6 +76,21 @@ public class CourseController {
         label.setStyle("-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;");
         tile.getChildren().add(label);
 
+        tile.setOnMouseClicked(e -> {
+            try {
+                Scene scene = tile.getScene();
+                StackPane contentArea = (StackPane) scene.lookup("#contentArea");
+
+                if (contentArea != null) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/byteme/bytemeapplication/fxml/SubjectDetailView.fxml"));
+                    Parent detailView = loader.load();
+                    contentArea.getChildren().setAll(detailView);
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
         return tile;
     }
 
