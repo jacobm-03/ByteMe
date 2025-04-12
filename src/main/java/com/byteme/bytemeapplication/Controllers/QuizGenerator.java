@@ -14,7 +14,7 @@ public class QuizGenerator {
 
     public static void main(String[] args) {
         // ✅ Replace with actual path to your PDF file
-        String pdfPath = "C:/Users/1320t/Documents/QUT/ByteMe/sample.pdf";
+        String pdfPath = "";
         String ollamaUrl = "http://localhost:11434/api/generate";
         String model = "llama3.2:latest";
 

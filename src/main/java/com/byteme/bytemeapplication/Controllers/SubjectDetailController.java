@@ -1,18 +1,21 @@
 package com.byteme.bytemeapplication.Controllers;
 
 import com.byteme.bytemeapplication.Utils.FileParser;
-import com.byteme.bytemeapplication.Utils.OllamaClient;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.json.JSONObject;
+import com.byteme.bytemeapplication.Utils.QuizDataHolder;
 
 import java.io.File;
+import java.io.IOException;
 
 public class SubjectDetailController {
 
@@ -20,6 +23,9 @@ public class SubjectDetailController {
     @FXML private Label statusLabel;
     @FXML private VBox docBox;
     @FXML private VBox quizContainer;
+
+    private File uploadedFile;
+    private String extractedText;
 
     @FXML
     private void initialize() {
@@ -45,10 +51,10 @@ public class SubjectDetailController {
         );
 
         Stage stage = (Stage) docBox.getScene().getWindow();
-        File file = fileChooser.showOpenDialog(stage);
+        uploadedFile = fileChooser.showOpenDialog(stage);
 
-        if (file != null) {
-            simulateUpload(file);  // ✅ Correct method name
+        if (uploadedFile != null) {
+            simulateUpload(uploadedFile);
         }
     }
 
@@ -58,32 +64,19 @@ public class SubjectDetailController {
             protected Void call() throws Exception {
                 int steps = 100;
                 for (int i = 1; i <= steps; i++) {
-                    Thread.sleep(15);
+                    Thread.sleep(10);
                     updateProgress(i, steps);
                     updateMessage("Uploading " + file.getName() + "... " + i + "%");
                 }
 
                 try {
-                    // ✅ Extract text
-                    String text = FileParser.extractTextFromPDF(file);
-                    if (text == null || text.trim().isEmpty()) {
+                    // Extract text
+                    extractedText = FileParser.extractTextFromPDF(file);
+                    if (extractedText == null || extractedText.trim().isEmpty()) {
                         throw new Exception("No text extracted from file.");
                     }
-
-                    // System.out.println("📄 Extracted Text:\n" + text); // 🔒 Commented out for now
-
-                    // ✅ Generate quiz via Ollama
-                    String json = OllamaClient.generateQuiz(text);
-                    System.out.println("🔁 Raw JSON:\n" + json);
-
-                    // ✅ Parse JSON and print quiz
-                    JSONObject obj = new JSONObject(json);
-                    String quiz = obj.getString("response");
-
-                    System.out.println("✅ Quiz Output:\n" + quiz);
-
                 } catch (Exception ex) {
-                    System.err.println("❌ Error generating quiz:");
+                    System.err.println("❌ Error extracting text:");
                     ex.printStackTrace();
                     throw ex;
                 }
@@ -97,7 +90,8 @@ public class SubjectDetailController {
 
         uploadTask.setOnSucceeded(e -> {
             statusLabel.textProperty().unbind();
-            statusLabel.setText("✅ Quiz printed in terminal.");
+            statusLabel.setText("✅ Upload complete!");
+            goToQuizOptions(extractedText); // Proceed to next screen
         });
 
         uploadTask.setOnFailed(e -> {
@@ -106,5 +100,18 @@ public class SubjectDetailController {
         });
 
         new Thread(uploadTask).start();
+    }
+
+    private void goToQuizOptions(String extractedText) {
+        try {
+            // ✅ Save the text globally for retrieval in QuizOptionsController
+            QuizDataHolder.setExtractedText(extractedText);
+
+            // ✅ Load next view using FXML path
+            HomeController.getInstance().loadContent("/com/byteme/bytemeapplication/fxml/QuizOptionsView.fxml");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

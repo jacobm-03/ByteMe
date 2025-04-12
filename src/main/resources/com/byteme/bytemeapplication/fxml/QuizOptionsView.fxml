@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.collections.FXCollections?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.byteme.bytemeapplication.Controllers.QuizOptionsController"
+      spacing="20" alignment="CENTER" stylesheets="@../css/style.css"
+      prefWidth="800" prefHeight="600" styleClass="container">
+
+    <Label text="Quiz Generation Settings" styleClass="section-title"/>
+
+    <!-- Difficulty Dropdown -->
+    <VBox spacing="10">
+        <Label text="Difficulty"/>
+        <ComboBox fx:id="difficultyCombo" prefWidth="200"/>
+    </VBox>
+
+    <!-- Number of Questions Spinner -->
+    <VBox spacing="10">
+        <Label text="Number of Questions"/>
+        <Spinner fx:id="questionSpinner" prefWidth="200"/>
+    </VBox>
+
+    <!-- Generate Button -->
+    <Button fx:id="generateQuizBtn" text="Generate Quiz"/>
+</VBox>
