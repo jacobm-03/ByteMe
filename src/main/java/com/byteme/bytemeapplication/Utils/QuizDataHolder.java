@@ -2,7 +2,8 @@ package com.byteme.bytemeapplication.Utils;
 
 public class QuizDataHolder {
     private static String extractedText;
-    private static String fileName;  // 🆕 Add this
+    private static String fileName;
+    private static String quizText; // ✅ NEW
 
     public static void setExtractedText(String text) {
         extractedText = text;
@@ -20,8 +21,17 @@ public class QuizDataHolder {
         return fileName;
     }
 
+    public static void setQuizText(String text) {  // ✅ NEW
+        quizText = text;
+    }
+
+    public static String getQuizText() {  // ✅ NEW
+        return quizText;
+    }
+
     public static void clear() {
         extractedText = null;
-        fileName = null; // 🧹 clear filename too
+        fileName = null;
+        quizText = null; // ✅ NEW
     }
 }
