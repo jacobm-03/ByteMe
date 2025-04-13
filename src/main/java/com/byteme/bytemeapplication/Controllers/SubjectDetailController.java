@@ -1,21 +1,17 @@
 package com.byteme.bytemeapplication.Controllers;
 
 import com.byteme.bytemeapplication.Utils.FileParser;
+import com.byteme.bytemeapplication.Utils.QuizDataHolder;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import com.byteme.bytemeapplication.Utils.QuizDataHolder;
 
 import java.io.File;
-import java.io.IOException;
 
 public class SubjectDetailController {
 
@@ -70,7 +66,6 @@ public class SubjectDetailController {
                 }
 
                 try {
-                    // Extract text
                     extractedText = FileParser.extractTextFromPDF(file);
                     if (extractedText == null || extractedText.trim().isEmpty()) {
                         throw new Exception("No text extracted from file.");
@@ -91,7 +86,7 @@ public class SubjectDetailController {
         uploadTask.setOnSucceeded(e -> {
             statusLabel.textProperty().unbind();
             statusLabel.setText("✅ Upload complete!");
-            goToQuizOptions(extractedText); // Proceed to next screen
+            goToQuizOptions(extractedText, file.getName()); // ⬅️ send file name too
         });
 
         uploadTask.setOnFailed(e -> {
@@ -102,12 +97,12 @@ public class SubjectDetailController {
         new Thread(uploadTask).start();
     }
 
-    private void goToQuizOptions(String extractedText) {
+    private void goToQuizOptions(String extractedText, String fileName) {
         try {
-            // ✅ Save the text globally for retrieval in QuizOptionsController
+            // ✅ Save both extracted text and file name globally
             QuizDataHolder.setExtractedText(extractedText);
+            QuizDataHolder.setFileName(fileName); // ⬅️ save file name here
 
-            // ✅ Load next view using FXML path
             HomeController.getInstance().loadContent("/com/byteme/bytemeapplication/fxml/QuizOptionsView.fxml");
 
         } catch (Exception e) {

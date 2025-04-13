@@ -170,3 +170,103 @@
     -fx-background-color: #8e88f5;
 }
 
+.quiz-options-root {
+    -fx-background-color: #f3eaff;
+}
+
+.heading {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.subheading {
+    -fx-font-size: 16px;
+    -fx-text-fill: #666;
+    -fx-padding: 0 0 10 0;
+}
+
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 12, 0, 0, 4);
+    -fx-border-radius: 20px;
+}
+
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #444;
+}
+
+.primary-button {
+    -fx-background-color: #9f7aea;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 20 8 20;
+    -fx-background-radius: 30;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #805ad5;
+}
+
+.title-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.subtitle-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555;
+}
+
+.container {
+    -fx-background-color: #f3e9ff;
+}
+
+.back-button {
+    -fx-background-color: #b9aaff;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-padding: 8 15;
+}
+
+.file-label {
+    -fx-font-style: italic;
+    -fx-text-fill: #444;
+}
+
+.generate-button {
+    -fx-background-color: #b48aff;
+    -fx-text-fill: white;
+    -fx-padding: 10 20;
+    -fx-background-radius: 15;
+    -fx-font-weight: bold;
+}
+
+.styled-combo {
+    -fx-background-radius: 10;
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 10;
+    -fx-padding: 5 10;
+    -fx-font-size: 13px;
+}
+
+.form-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+.file-container {
+    -fx-padding: 20;
+    -fx-background-color: #f6f6f6;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-max-width: 500;
+}

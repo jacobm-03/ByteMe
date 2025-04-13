@@ -9,48 +9,47 @@ import java.net.URL;
 public class OllamaClient {
     private static final String API_URL = "http://localhost:11434/api/generate";
 
-    public static String generateQuiz(String promptText) throws IOException {
-        // Structured prompt
+    public static String generateQuiz(String promptText, String difficulty, int numQuestions) throws IOException {
         String promptTemplate = """
-        You are a helpful assistant. Your task is to generate a short 5-question multiple choice quiz based ONLY on the following content:
+        You are a helpful assistant. Your task is to generate exactly %d multiple choice questions at a %s difficulty level based ONLY on the following content:
 
         %s
 
         Each question must follow this structure:
 
-        Q1. [Question text]
-        A. Option 1
-        B. Option 2
-        C. Option 3
-        D. Option 4
+        Q1. [Question text]  
+        A. Option 1  
+        B. Option 2  
+        C. Option 3  
+        D. Option 4  
         Answer: [A/B/C/D]
 
-        Keep questions concise and relevant. Do not repeat or reference the original text. Ensure answers are accurate.
+        ⚠️ Do not provide more than %d questions.  
+        ⚠️ Do not repeat or reference the original text.  
+        ⚠️ Keep questions concise and relevant.
         """;
 
-        String prompt = String.format(promptTemplate, promptText);
+        String prompt = String.format(promptTemplate, numQuestions, difficulty, promptText, numQuestions);
+
         String jsonInput = String.format("""
             {
-              "model": "stablelm-zephyr:latest",
+              "model": "mistral",
               "prompt": "%s",
               "stream": false
             }
             """, escapeJson(prompt));
 
-        // Create connection
         URL url = new URL(API_URL);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setDoOutput(true);
 
-        // Send request
         try (OutputStream os = conn.getOutputStream()) {
             byte[] input = jsonInput.getBytes("utf-8");
             os.write(input, 0, input.length);
         }
 
-        // Handle error response
         int responseCode = conn.getResponseCode();
         if (responseCode != 200) {
             try (InputStream errorStream = conn.getErrorStream()) {
@@ -61,7 +60,6 @@ public class OllamaClient {
             throw new IOException("Server returned HTTP status: " + responseCode);
         }
 
-        // Read successful response
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(conn.getInputStream(), "utf-8"))) {
             StringBuilder response = new StringBuilder();
@@ -71,15 +69,11 @@ public class OllamaClient {
                 response.append(line);
             }
 
-            // Parse JSON and extract only quiz response
             JSONObject jsonObject = new JSONObject(response.toString());
-            String quiz = jsonObject.getString("response");
-
-            return quiz;
+            return jsonObject.getString("response");
         }
     }
 
-    // Utility to escape JSON properly
     private static String escapeJson(String str) {
         return str.replace("\r", "")
                 .replace("\"", "\\\"")
