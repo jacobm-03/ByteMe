@@ -1,11 +1,10 @@
 package com.byteme.bytemeapplication.Controllers;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.Button;
+import com.byteme.bytemeapplication.Utils.OllamaClient;
+import com.byteme.bytemeapplication.Utils.QuizDataHolder;
 import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
 
 public class QuizOptionsController {
 
@@ -15,15 +14,12 @@ public class QuizOptionsController {
 
     @FXML
     public void initialize() {
-        // Setup difficulty options
         difficultyCombo.setItems(FXCollections.observableArrayList("Easy", "Medium", "Hard"));
         difficultyCombo.getSelectionModel().selectFirst();
 
-        // Setup spinner for number of questions
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 5);
         questionSpinner.setValueFactory(valueFactory);
 
-        // Setup button action
         generateQuizBtn.setOnAction(e -> {
             String difficulty = difficultyCombo.getValue();
             int numQuestions = questionSpinner.getValue();
@@ -32,7 +28,21 @@ public class QuizOptionsController {
             System.out.println("- Difficulty: " + difficulty);
             System.out.println("- Questions: " + numQuestions);
 
-            // TODO: Send these settings to your LLM request
+            String pdfText = QuizDataHolder.getExtractedText();
+
+            if (pdfText == null || pdfText.isBlank()) {
+                System.err.println("❌ No extracted text found. Make sure a PDF was uploaded and parsed.");
+                return;
+            }
+
+            try {
+                String quiz = OllamaClient.generateQuiz(pdfText);
+                System.out.println("\n✅ Generated Quiz:\n");
+                System.out.println(quiz);
+            } catch (Exception ex) {
+                System.err.println("❌ Failed to generate quiz: " + ex.getMessage());
+                ex.printStackTrace();
+            }
         });
     }
 }
