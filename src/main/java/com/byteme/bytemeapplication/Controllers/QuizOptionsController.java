@@ -12,6 +12,8 @@ public class QuizOptionsController {
     @FXML private Spinner<Integer> questionSpinner;
     @FXML private Button generateQuizBtn;
     @FXML private Label fileNameLabel;
+    @FXML private ProgressIndicator loadingSpinner;
+
 
     @FXML
     public void initialize() {
@@ -33,10 +35,6 @@ public class QuizOptionsController {
             int numQuestions = questionSpinner.getValue();
             String pdfText = QuizDataHolder.getExtractedText();
 
-            System.out.println("📘 Generating quiz with:");
-            System.out.println("- Difficulty: " + difficulty);
-            System.out.println("- Questions: " + numQuestions);
-
             if (pdfText == null || pdfText.isBlank()) {
                 System.err.println("❌ No extracted text found.");
                 Alert alert = new Alert(Alert.AlertType.ERROR, "No PDF text was uploaded or extracted.");
@@ -44,30 +42,40 @@ public class QuizOptionsController {
                 return;
             }
 
+            // Disable UI and show loading
             generateQuizBtn.setDisable(true);
-            generateQuizBtn.setText("Generating...");
+            loadingSpinner.setVisible(true);
 
-            try {
-                // Generate quiz using Ollama
-                String quiz = OllamaClient.generateQuiz(pdfText, difficulty, numQuestions);
-                System.out.println("✅ Quiz generated:\n" + quiz);
+            // Run quiz generation on a background thread
+            new Thread(() -> {
+                try {
+                    String quiz = OllamaClient.generateQuiz(pdfText, difficulty, numQuestions);
+                    QuizDataHolder.setQuizText(quiz);
 
-                // Save quiz to data holder
-                QuizDataHolder.setQuizText(quiz);
+                    // Switch to UI thread to load quiz view
+                    javafx.application.Platform.runLater(() -> {
+                        try {
+                            HomeController.getInstance().loadContent("/com/byteme/bytemeapplication/fxml/QuizView.fxml");
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    });
 
-                // Navigate to the quiz UI screen
-                HomeController.getInstance().loadContent("/com/byteme/bytemeapplication/fxml/QuizView.fxml");
-
-            } catch (Exception ex) {
-                System.err.println("❌ Failed to generate quiz: " + ex.getMessage());
-                ex.printStackTrace();
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR, "Quiz generation failed.");
-                errorAlert.showAndWait();
-            } finally {
-                generateQuizBtn.setDisable(false);
-                generateQuizBtn.setText("Generate Quiz");
-            }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    javafx.application.Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "Quiz generation failed.");
+                        alert.showAndWait();
+                    });
+                } finally {
+                    javafx.application.Platform.runLater(() -> {
+                        generateQuizBtn.setDisable(false);
+                        loadingSpinner.setVisible(false);
+                    });
+                }
+            }).start();
         });
+
     }
 
     @FXML

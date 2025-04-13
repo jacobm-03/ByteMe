@@ -54,6 +54,12 @@
 
             <!-- Generate -->
             <Button fx:id="generateQuizBtn" text="Generate Quiz" styleClass="generate-button"/>
+
+            <ProgressIndicator fx:id="loadingSpinner"
+                               visible="false"
+                               maxWidth="50"
+                               maxHeight="50"
+                               style="-fx-progress-color: #6a5acd;" />
         </VBox>
     </center>
 </BorderPane>
