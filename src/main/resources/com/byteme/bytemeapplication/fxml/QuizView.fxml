@@ -1,22 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="20" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx"
+<VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.byteme.bytemeapplication.Controllers.QuizUIController"
-      prefWidth="600" prefHeight="400" style="-fx-padding: 20">
+      spacing="30"
+      alignment="TOP_CENTER"
+      prefWidth="800" prefHeight="600"
+      style="-fx-background-color: #f8f3ff; -fx-padding: 40;">
 
-    <Label fx:id="questionLabel" wrapText="true" style="-fx-font-size: 16px;"/>
+    <!-- QUESTION -->
+    <Label fx:id="questionLabel"
+           wrapText="true"
+           alignment="CENTER"
+           maxWidth="700"
+           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
 
-    <VBox spacing="10">
-        <RadioButton fx:id="optionA" toggleGroup="$optionsGroup"/>
-        <RadioButton fx:id="optionB" toggleGroup="$optionsGroup"/>
-        <RadioButton fx:id="optionC" toggleGroup="$optionsGroup"/>
-        <RadioButton fx:id="optionD" toggleGroup="$optionsGroup"/>
+    <!-- OPTION BUTTONS -->
+    <VBox spacing="15" maxWidth="700" VBox.vgrow="NEVER">
+        <Button fx:id="optionA"
+                onAction="#handleOptionClick"
+                maxWidth="Infinity"
+                styleClass="option-button"/>
+        <Button fx:id="optionB"
+                onAction="#handleOptionClick"
+                maxWidth="Infinity"
+                styleClass="option-button"/>
+        <Button fx:id="optionC"
+                onAction="#handleOptionClick"
+                maxWidth="Infinity"
+                styleClass="option-button"/>
+        <Button fx:id="optionD"
+                onAction="#handleOptionClick"
+                maxWidth="Infinity"
+                styleClass="option-button"/>
     </VBox>
 
-    <Button fx:id="nextButton" text="Next Question" onAction="#handleNext"/>
-    <Label fx:id="resultLabel" style="-fx-font-weight: bold;" visible="false"/>
+    <!-- SUBMIT -->
+    <Button fx:id="nextButton"
+            text="Submit"
+            onAction="#handleNext"
+            style="-fx-background-color: #6a5acd; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 30; -fx-background-radius: 10;"/>
+
+    <!-- RESULT -->
+    <VBox spacing="20" alignment="CENTER">
+        <Label fx:id="resultLabel"
+               visible="false"
+               wrapText="true"
+               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #4a4a4a;"/>
+
+        <Button fx:id="finishButton"
+                text="Back to Courses"
+                visible="false"
+                onAction="#handleFinish"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 30; -fx-background-radius: 10;"/>
+    </VBox>
+
 </VBox>
