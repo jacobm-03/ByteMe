@@ -33,7 +33,7 @@ public class OllamaClient {
 
         String jsonInput = String.format("""
             {
-              "model": "mistral",
+              "model": "llama3.2:latest",
               "prompt": "%s",
               "stream": false
             }
