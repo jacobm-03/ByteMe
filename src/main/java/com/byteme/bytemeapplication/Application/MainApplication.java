@@ -16,7 +16,6 @@ public class MainApplication extends Application {
         stage.setTitle("ByteMe AI Tutor");
         stage.show();
     }
-
     public static void main(String[] args) {
         launch(args);
     }

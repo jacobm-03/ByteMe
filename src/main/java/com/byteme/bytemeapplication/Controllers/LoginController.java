@@ -242,15 +242,32 @@
                 stmt.setString(5, password);
 
                 stmt.executeUpdate();
+
+                // Get inserted user info back for profile page
+                String query = "SELECT * FROM users WHERE id = ?";
+                PreparedStatement getUserStmt = conn.prepareStatement(query);
+                getUserStmt.setString(1, id);
+                var rs = getUserStmt.executeQuery();
+
+                if (rs.next()) {
+                    User user = new User(
+                            rs.getInt("id"),
+                            rs.getString("firstname"),
+                            rs.getString("lastname"),
+                            rs.getString("email")
+                    );
+                    Session.setCurrentUser(user);
+                }
+
                 showAlert("✅ Account created successfully!");
                 clearFields();
                 return true;
+
 
             } catch (SQLException e) {
                 showAlert("❌ Database error: " + e.getMessage());
                 return false;
             }
-
 
         }
 
@@ -335,9 +352,6 @@
         private void handleInstagramLogin(ActionEvent event) {
             System.out.println("Instagram button clicked!");
         }
-
-
-
 
     }
 

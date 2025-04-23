@@ -14,6 +14,10 @@ import javafx.scene.Node;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 
+import com.byteme.bytemeapplication.Models.User;
+import com.byteme.bytemeapplication.Helpers.Session;
+
+
 public class ProfileController {
 
     @FXML private Label nameLabel;
@@ -34,14 +38,26 @@ public class ProfileController {
 
     @FXML
     private void initialize() {
-        // Simulated user data — replace with actual logic later
-        String fullName = "Student Name";
-        String email = "StudentName@email.com";
-        String year = "Year 12";
+        User user = Session.getCurrentUser();
 
-        nameLabel.setText(fullName);
-        emailLabel.setText(email);
-        yearLabel.setText(year);
+        if (user != null) {
+            nameLabel.setText(user.getFullName());
+            emailLabel.setText(user.getEmail());
+            yearLabel.setText(" ");
+        } else {
+            nameLabel.setText("Student Name");
+            emailLabel.setText("StudentName@email.com");
+            yearLabel.setText("Year 12");
+        }
+
+        editProfileBtn.setOnAction(e -> handleEditProfileClick());
+        progressBtn.setOnAction(e -> System.out.println("Progress clicked!"));
+
+        for (Node node : yearSelector.getChildren()) {
+            if (node instanceof ToggleButton button) {
+                button.setToggleGroup(yearToggleGroup);
+            }
+        }
 
         editProfileBtn.setOnAction(e -> handleEditProfileClick());
         progressBtn.setOnAction(e -> System.out.println("Progress clicked!"));
@@ -57,8 +73,17 @@ public class ProfileController {
     @FXML
     private void handleEditProfileClick() {
         System.out.println("Edit Profile clicked!");
+
+        // Show the modal
         modalOverlay.setVisible(true);
         modalOverlay.setManaged(true);
+
+        // Auto-fill fields with session user data
+        User user = Session.getCurrentUser();
+        if (user != null) {
+            firstNameField.setText(user.getFirstName());
+            lastNameField.setText(user.getLastName());
+        }
     }
 
     @FXML
