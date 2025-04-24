@@ -2,6 +2,7 @@ package com.byteme.bytemeapplication.Controllers;
 
 import com.byteme.bytemeapplication.Database.DatabaseConnection;
 import com.byteme.bytemeapplication.Helpers.Session;
+import com.byteme.bytemeapplication.Utils.QuizDataHolder;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,7 +31,6 @@ public class CourseController {
     private void loadUserSubjects() {
         subjectFlow.getChildren().clear();
 
-        // Handle case if user is not logged in
         if (Session.getCurrentUser() == null) {
             showEmptyState();
             subjectFlow.getChildren().add(createAddTile());
@@ -49,10 +49,11 @@ public class CourseController {
 
             while (rs.next()) {
                 hasSubjects = true;
+                int subjectId = rs.getInt("id");
                 String name = rs.getString("name");
                 String color = rs.getString("color");
 
-                StackPane tile = createSubjectTile(name, color);
+                StackPane tile = createSubjectTile(subjectId, name, color);
                 subjectFlow.getChildren().add(tile);
             }
 
@@ -60,14 +61,12 @@ public class CourseController {
             e.printStackTrace();
         }
 
-        // Toggle empty state visibility
         emptyStateBox.setVisible(!hasSubjects);
         emptyStateBox.setManaged(!hasSubjects);
-
         subjectFlow.getChildren().add(createAddTile());
     }
 
-    private StackPane createSubjectTile(String name, String colorHex) {
+    private StackPane createSubjectTile(int subjectId, String name, String colorHex) {
         StackPane tile = new StackPane();
         tile.setPrefSize(180, 100);
         tile.setStyle("-fx-background-color: " + colorHex + "; -fx-background-radius: 20px;");
@@ -78,6 +77,8 @@ public class CourseController {
 
         tile.setOnMouseClicked(e -> {
             try {
+                QuizDataHolder.setSubjectId(subjectId);
+
                 Scene scene = tile.getScene();
                 StackPane contentArea = (StackPane) scene.lookup("#contentArea");
 
