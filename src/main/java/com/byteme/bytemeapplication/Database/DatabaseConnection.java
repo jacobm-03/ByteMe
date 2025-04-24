@@ -7,16 +7,17 @@ import java.sql.Statement;
 
 public class DatabaseConnection {
     private static Connection instance;
-    private static final String URL = "jdbc:sqlite:data/UserData.db";
+    private static final String DB_PATH = "data/UserData.db";
+    private static final String URL = "jdbc:sqlite:" + DB_PATH;
 
     private DatabaseConnection() {
         try {
             instance = DriverManager.getConnection(URL);
-            System.out.println("✅ Connected to SQLite at: " + new java.io.File(URL.replace("jdbc:sqlite:", "")).getAbsolutePath());
+            System.out.println("✅ Connected to SQLite at: " + new java.io.File(DB_PATH).getAbsolutePath());
 
-            // ✅ Create tables on launch
             createUsersTable();
-            createSubjectsTable();  // ← Add this line to initialize subjects table
+            createSubjectsTable();
+            createUserScoresTable(); // Track quiz scores over time
 
         } catch (SQLException e) {
             System.err.println("❌ Database connection failed: " + e.getMessage());
@@ -35,7 +36,7 @@ public class DatabaseConnection {
     }
 
     private void createUsersTable() {
-        String createTableSQL = """
+        String sql = """
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 firstname TEXT NOT NULL,
@@ -45,12 +46,7 @@ public class DatabaseConnection {
             );
         """;
 
-        try (Statement stmt = instance.createStatement()) {
-            stmt.execute(createTableSQL);
-            System.out.println("✅ users table created or already exists.");
-        } catch (SQLException e) {
-            System.err.println("❌ Failed to create users table: " + e.getMessage());
-        }
+        executeTableCreation(sql, "users");
     }
 
     private void createSubjectsTable() {
@@ -64,11 +60,32 @@ public class DatabaseConnection {
             );
         """;
 
+        executeTableCreation(sql, "subjects");
+    }
+
+    private void createUserScoresTable() {
+        String sql = """
+            CREATE TABLE IF NOT EXISTS user_scores (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                subject_id INTEGER NOT NULL,
+                score INTEGER NOT NULL,
+                total_questions INTEGER NOT NULL,
+                timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY(user_id) REFERENCES users(id),
+                FOREIGN KEY(subject_id) REFERENCES subjects(id)
+            );
+        """;
+
+        executeTableCreation(sql, "user_scores");
+    }
+
+    private void executeTableCreation(String sql, String tableName) {
         try (Statement stmt = instance.createStatement()) {
             stmt.execute(sql);
-            System.out.println("✅ subjects table created or already exists.");
+            System.out.println("✅ " + tableName + " table created or already exists.");
         } catch (SQLException e) {
-            System.err.println("❌ Failed to create subjects table: " + e.getMessage());
+            System.err.println("❌ Failed to create " + tableName + " table: " + e.getMessage());
         }
     }
 }

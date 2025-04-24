@@ -1,46 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
 
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.byteme.bytemeapplication.Controllers.SubjectDetailController"
            style="-fx-background-color: #f2eaff;">
-    <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 40;">
-        <Button text="← Back" onAction="#handleBack"
-                style="-fx-background-color: #bca8ff; -fx-text-fill: white; -fx-background-radius: 20px; -fx-padding: 6 16;"/>
 
+    <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 40;">
+
+        <!-- Top Bar -->
+        <HBox spacing="20" alignment="CENTER_LEFT" prefWidth="Infinity">
+            <Button text="← Back" onAction="#handleBack"
+                    style="-fx-background-color: #e0d4ff; -fx-text-fill: #333; -fx-padding: 6 16; -fx-font-weight: bold; -fx-background-radius: 10;" />
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <!-- Score Ring UI Block -->
+            <VBox alignment="CENTER_RIGHT" spacing="4" style="-fx-padding: 0 10 0 0;">
+                <Label fx:id="subjectNameLabel"
+                       text="Math Proficiency"
+                       style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #222;" />
+
+                <StackPane fx:id="scoreRingContainer"
+                           prefWidth="90" prefHeight="90"
+                           style="-fx-background-color: white;
+                                  -fx-background-radius: 45;
+                                  -fx-border-color: #ccc;
+                                  -fx-border-width: 2;
+                                  -fx-border-radius: 45;
+                                  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.2, 1, 1);">
+
+                    <Pane fx:id="donutPane"
+                          prefWidth="90" prefHeight="90"
+                          style="-fx-background-color: transparent;" />
+                </StackPane>
+
+                <Label fx:id="avgScoreLabel"
+                       text="--%"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;" />
+            </VBox>
+        </HBox>
+
+        <!-- Title -->
         <Label text="Make it your way" style="-fx-font-size: 26px; -fx-font-weight: bold;" />
         <Label text="Extract Questions from" style="-fx-font-size: 14px;" />
 
+        <!-- Upload Options -->
         <HBox spacing="30" alignment="CENTER">
-
             <VBox fx:id="docBox" onMouseClicked="#handleDocUpload"
                   alignment="CENTER"
-                  style="-fx-background-color: #bca8ff; -fx-padding: 25; -fx-background-radius: 20px; -fx-cursor: hand;">
+                  style="-fx-background-color: #bca8ff;
+                         -fx-padding: 25;
+                         -fx-background-radius: 20px;
+                         -fx-cursor: hand;">
                 <Label text="📄" style="-fx-font-size: 30px;" />
                 <Label text="Doc" style="-fx-font-size: 16px;" />
             </VBox>
 
-            <VBox alignment="CENTER" style="-fx-background-color: #f3f3f3; -fx-padding: 25; -fx-background-radius: 20px;">
+            <VBox alignment="CENTER"
+                  style="-fx-background-color: #f3f3f3;
+                         -fx-padding: 25;
+                         -fx-background-radius: 20px;">
                 <Label text="✒" style="-fx-font-size: 30px;" />
-                <Label text="Text" style="-fx-font-size: 16px;"/>
+                <Label text="Text" style="-fx-font-size: 16px;" />
             </VBox>
-            <VBox alignment="CENTER" style="-fx-background-color: #f3f3f3; -fx-padding: 25; -fx-background-radius: 20px;">
+
+            <VBox alignment="CENTER"
+                  style="-fx-background-color: #f3f3f3;
+                         -fx-padding: 25;
+                         -fx-background-radius: 20px;">
                 <Label text="📷" style="-fx-font-size: 30px;" />
-                <Label text="Photo" style="-fx-font-size: 16px;"/>
+                <Label text="Photo" style="-fx-font-size: 16px;" />
             </VBox>
-            <VBox alignment="CENTER" style="-fx-background-color: #f3f3f3; -fx-padding: 25; -fx-background-radius: 20px;">
+
+            <VBox alignment="CENTER"
+                  style="-fx-background-color: #f3f3f3;
+                         -fx-padding: 25;
+                         -fx-background-radius: 20px;">
                 <Label text="🧩" style="-fx-font-size: 30px;" />
-                <Label text="Other" style="-fx-font-size: 16px;"/>
+                <Label text="Other" style="-fx-font-size: 16px;" />
             </VBox>
         </HBox>
 
-        <VBox alignment="CENTER" style="-fx-padding: 40; -fx-spacing: 10;">
-            <ProgressBar fx:id="progressBar" progress="0.0" style="-fx-accent: #bca8ff; -fx-pref-width: 800px;" />
-            <Label fx:id="statusLabel" text="Waiting for file..." style="-fx-font-size: 14px;"/>
+        <!-- Upload Progress Section -->
+        <VBox alignment="CENTER" spacing="10" style="-fx-padding: 40;">
+            <ProgressBar fx:id="progressBar"
+                         progress="0.0"
+                         style="-fx-accent: #bca8ff;"
+                         prefWidth="800" />
+            <Label fx:id="statusLabel"
+                   text="Waiting for file..."
+                   style="-fx-font-size: 14px;" />
         </VBox>
 
-        <VBox fx:id="quizContainer" spacing="10" style="-fx-padding: 20;"/>
+        <!-- Placeholder for dynamic quiz area -->
+        <VBox fx:id="quizContainer" spacing="10" style="-fx-padding: 20;" />
     </VBox>
 </StackPane>
