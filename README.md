@@ -9,7 +9,7 @@
 
 ## Ollama AI
 1) Download Ollama AI Via https://ollama.com/download
-2) After install run 'ollama pull llama3.2'
+2) After install run 'ollama pull llama3.2' in Terminal or CMD
 3) Run the ollama model 'ollama run llama3.2'
 
 ## 🍎 Mac Setup Guide (JavaFX 21)
