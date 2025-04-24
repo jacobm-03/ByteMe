@@ -7,7 +7,7 @@
 - Git Hub Account
 - SQL and DB Browser
 
-##Ollama AI
+## Ollama AI
 1) Download Ollama AI Via https://ollama.com/download
 2) After install run 'ollama pull llama3.2'
 3) Run the ollama model 'ollama run llama3.2'
