@@ -27,5 +27,13 @@
                   hgap="20" vgap="20"
                   style="-fx-padding: 20;"
                   alignment="CENTER" />
+
+        <!-- Delete state button -->
+        <Button fx:id="delStateBtn"
+                text="🗑"
+                onAction="#toggleDelState"
+                style="-fx-background-color: #bca8ff; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 6 16;
+-fx-background-radius: 10;"/>
+
     </VBox>
 </StackPane>

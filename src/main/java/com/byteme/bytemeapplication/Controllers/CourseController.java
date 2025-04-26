@@ -6,6 +6,7 @@ import com.byteme.bytemeapplication.Utils.QuizDataHolder;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
@@ -22,6 +23,8 @@ public class CourseController {
 
     @FXML private FlowPane subjectFlow;
     @FXML private VBox emptyStateBox;
+    @FXML private javafx.scene.control.Button delStateBtn;
+    private boolean delState = false;
 
     @FXML
     private void initialize() {
@@ -66,29 +69,52 @@ public class CourseController {
         subjectFlow.getChildren().add(createAddTile());
     }
 
+    @FXML
+    private void toggleDelState() {
+        delState = !delState;
+        if (delState) { // Pressing the button makes it darker to show the user it's in the delete state
+            delStateBtn.setStyle("-fx-background-color: #a799ff; -fx-text-fill: white;" +
+                    "-fx-font-weight: bold; -fx-padding: 6 16; -fx-background-radius: 10;");
+        } else {
+            delStateBtn.setStyle("-fx-background-color: #bca8ff; -fx-text-fill: white;" +
+                    "-fx-font-weight: bold; -fx-padding: 6 16; -fx-background-radius: 10;");
+        }
+        loadUserSubjects();
+    }
+
     private StackPane createSubjectTile(int subjectId, String name, String colorHex) {
         StackPane tile = new StackPane();
         tile.setPrefSize(180, 100);
-        tile.setStyle("-fx-background-color: " + colorHex + "; -fx-background-radius: 20px;");
-
+        if (delState) { // Makes subject box grey to show user it can be deleted
+            tile.setStyle("-fx-background-color: #BEBEBE; -fx-background-radius: 20px;");
+        } else {
+            tile.setStyle("-fx-background-color: " + colorHex + "; -fx-background-radius: 20px;");
+        }
         Label label = new Label(name);
         label.setStyle("-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;");
         tile.getChildren().add(label);
 
         tile.setOnMouseClicked(e -> {
-            try {
-                QuizDataHolder.setSubjectId(subjectId);
+            if (delState) {
+                // In delete state
+                delSub(subjectId);
+                loadUserSubjects();
+            } else {
+                // In normal state
+                try {
+                    QuizDataHolder.setSubjectId(subjectId);
 
-                Scene scene = tile.getScene();
-                StackPane contentArea = (StackPane) scene.lookup("#contentArea");
+                    Scene scene = tile.getScene();
+                    StackPane contentArea = (StackPane) scene.lookup("#contentArea");
 
-                if (contentArea != null) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/byteme/bytemeapplication/fxml/SubjectDetailView.fxml"));
-                    Parent detailView = loader.load();
-                    contentArea.getChildren().setAll(detailView);
+                    if (contentArea != null) {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/byteme/bytemeapplication/fxml/SubjectDetailView.fxml"));
+                        Parent detailView = loader.load();
+                        contentArea.getChildren().setAll(detailView);
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
-            } catch (IOException ex) {
-                ex.printStackTrace();
             }
         });
 
@@ -121,6 +147,29 @@ public class CourseController {
         });
 
         return tile;
+    }
+
+    private void delSub(int subjectId) {
+        String sql = "DELETE FROM subjects WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getInstance();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, subjectId);
+            stmt.executeUpdate(); // Deletes subject in database
+            showAlert("✅ Subject deleted successfully!");
+
+
+        } catch (SQLException e) {
+            showAlert("❌ Failed to delete subject: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void showAlert(String msg) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(msg);
+        alert.showAndWait();
     }
 
     private void showEmptyState() {
