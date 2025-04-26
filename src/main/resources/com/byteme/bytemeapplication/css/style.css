@@ -287,3 +287,23 @@
     -fx-background-color: #eeeaff;
     -fx-cursor: hand;
 }
+
+/* Dropdown Menu */
+.context-menu {
+   -fx-background-color: #e4d6ff;
+       -fx-background-radius: 10;
+       -fx-padding: 4;
+}
+
+.context-menu .menu-item {
+    -fx-text-fill: #2e2e2e;
+       -fx-font-size: 4px;
+       -fx-font-family: "Segoe UI";
+       -fx-padding: 2;
+       -fx-background-radius: 10;
+}
+
+.menu-item:focused {
+    -fx-background-color: #d5c4ff;
+    -fx-text-fill: #000000;
+}
