@@ -82,10 +82,10 @@ public class ProgressController {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName(subjectName + " Scores");
 
-        String sql = "SELECT score, average_time FROM user_scores WHERE user_id = ? AND subject_id = ? ORDER BY created_at";
+        // Updated query: Order by score instead of created_at
+        String sql = "SELECT score FROM user_scores WHERE user_id = ? AND subject_id = ? ORDER BY score"; // Sorting by score
 
         double totalScore = 0;
-        double totalTime = 0;
         int quizCount = 0;
 
         try (Connection conn = DatabaseConnection.getInstance();
@@ -97,10 +97,8 @@ public class ProgressController {
 
             while (rs.next()) {
                 double score = rs.getDouble("score");
-                double avgTime = rs.getDouble("average_time");
 
                 totalScore += score;
-                totalTime += avgTime;
                 quizCount++;
 
                 series.getData().add(new XYChart.Data<>("Quiz " + quizCount, score));
@@ -113,13 +111,13 @@ public class ProgressController {
         // Update UI with calculated values
         averageLabel.setText(quizCount > 0 ? String.format("%.1f", totalScore / quizCount) : "N/A");
         quizzesCompletedLabel.setText(String.valueOf(quizCount));
-        timePerQuestionLabel.setText(quizCount > 0 ? String.format("%.0f sec", totalTime / quizCount) : "N/A");
+        timePerQuestionLabel.setText("N/A");
         streakLabel.setText("3 days"); // Placeholder or implement actual streak logic
 
         currentTopic.setText("Topic coverage not yet implemented");
 
-        strengthsList.getItems().addAll("Concept recall", "Time management");
-        weaknessesList.getItems().addAll("Speed under pressure");
+        strengthsList.getItems().addAll("", "");
+        weaknessesList.getItems().addAll("");
 
         quizPerformanceChart.getData().add(series);
     }
