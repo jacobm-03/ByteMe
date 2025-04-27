@@ -1,21 +1,23 @@
 package com.byteme.bytemeapplication.Controllers;
 
+import com.byteme.bytemeapplication.Database.DatabaseConnection;
+import com.byteme.bytemeapplication.Models.User;
+import com.byteme.bytemeapplication.Helpers.Session;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.event.ActionEvent;
+import javafx.stage.Stage;
 import java.io.IOException;
-
-import com.byteme.bytemeapplication.Models.User;
-import com.byteme.bytemeapplication.Helpers.Session;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 
 public class ProfileController {
@@ -94,6 +96,36 @@ public class ProfileController {
     }
 
     @FXML
+    private void handleDeleteAccount(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Delete");
+        alert.setHeaderText("Are you sure you want to delete your account?");
+        alert.setContentText("This action cannot be undone.");
+
+        if (alert.showAndWait().orElse(null) == ButtonType.OK) {
+            try (Connection conn = DatabaseConnection.getInstance()) {
+                int userId = Session.getCurrentUser().getId();
+                String sql = "DELETE FROM users WHERE id = ?";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, userId);
+                stmt.executeUpdate();
+
+                Session.clear();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/byteme/bytemeapplication/fxml/LoginView.fxml"));
+                Scene loginScene = new Scene(loader.load());
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(loginScene);
+                stage.setTitle("Login - ByteMe");
+                stage.show();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                showAlert("Failed to delete account: " + e.getMessage());
+            }
+        }
+    }
+
+    @FXML
     private void handleGoToCourses(ActionEvent event) {
         try {
             Node courseView = FXMLLoader.load(getClass().getResource("/com/byteme/bytemeapplication/fxml/CourseView.fxml"));
@@ -123,4 +155,12 @@ public class ProfileController {
             e.printStackTrace();
         }
     }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+
 }

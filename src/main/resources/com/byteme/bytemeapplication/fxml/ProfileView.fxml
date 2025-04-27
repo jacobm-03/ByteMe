@@ -133,7 +133,13 @@
             <!-- Save -->
             <Button text="Save Changes" onAction="#handleSaveChanges"
                     style="-fx-background-color: #b99ff2; -fx-text-fill: white; -fx-background-radius: 10;"/>
+
+            <!-- Delete Account -->
+            <Button fx:id="deleteAccountBtn" text="Delete Account"
+                    onAction="#handleDeleteAccount"
+                    style="-fx-background-color: #b99ff2; -fx-text-fill: white; -fx-background-radius: 10;"/>
         </VBox>
     </StackPane>
+
 </StackPane>
 
