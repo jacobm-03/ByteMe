@@ -50,19 +50,9 @@ public class ProfileController {
             yearLabel.setText("Year 12");
         }
 
-        editProfileBtn.setOnAction(e -> handleEditProfileClick());
-        progressBtn.setOnAction(e -> System.out.println("Progress clicked!"));
+         editProfileBtn.setOnAction(e -> handleEditProfileClick());
+        progressBtn.setOnAction(e -> handleProgressClick());
 
-        for (Node node : yearSelector.getChildren()) {
-            if (node instanceof ToggleButton button) {
-                button.setToggleGroup(yearToggleGroup);
-            }
-        }
-
-        editProfileBtn.setOnAction(e -> handleEditProfileClick());
-        progressBtn.setOnAction(e -> System.out.println("Progress clicked!"));
-
-        // Group year toggle buttons
         for (Node node : yearSelector.getChildren()) {
             if (node instanceof ToggleButton button) {
                 button.setToggleGroup(yearToggleGroup);
@@ -111,6 +101,23 @@ public class ProfileController {
             if (contentArea instanceof Pane pane) {
                 pane.getChildren().clear();
                 pane.getChildren().add(courseView);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+       //method to handle progress button click
+    @FXML
+    private void handleProgressClick() {
+        try {
+            // Load the ProgressController view
+            Node progressView = FXMLLoader.load(getClass().getResource("/com/byteme/bytemeapplication/fxml/ProgressView.fxml"));
+            Node contentArea = progressBtn.getScene().lookup("#contentArea");  // Assuming there is a contentArea in your layout
+
+            if (contentArea instanceof Pane pane) {
+                pane.getChildren().clear();  // Clear current content
+                pane.getChildren().add(progressView);  // Add the new view
             }
         } catch (IOException e) {
             e.printStackTrace();
