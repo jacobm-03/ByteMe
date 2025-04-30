@@ -20,7 +20,7 @@
 
             <ImageView fitHeight="60" preserveRatio="true" smooth="true">
                 <image>
-                    <Image url="@../images/BytemeNW.png"/>
+                    <Image url="@../images/ByteMeNW.png"/>
                 </image>
             </ImageView>
 
