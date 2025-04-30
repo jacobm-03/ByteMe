@@ -17,7 +17,7 @@
     <VBox alignment="CENTER" spacing="15">
         <ImageView fx:id="heroIcon" fitHeight="160" fitWidth="160" preserveRatio="true">
             <image>
-                <Image url="@../images/GoogleLogo.png"/>
+                <Image url="@../images/HomePageLeonardo.png"/>
             </image>
         </ImageView>
         <Label fx:id="quoteLabel"
@@ -30,7 +30,7 @@
     <VBox alignment="CENTER" spacing="10">
         <Button fx:id="ctaButton" text="Start creating custom courses →"
                 style="-fx-background-color: #a799ff; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-family: 'Segoe UI Semibold'; -fx-background-radius: 20px; -fx-padding: 10 25; -fx-cursor: hand;"/>
-        <Label fx:id="tipLabel" text="Tip: Head to the Courses tab to view or edit your existing course templates."
+        <Label fx:id="tipLabel" text="Head to the Courses tab to view or edit your existing course templates."
                wrapText="true"
                style="-fx-font-size: 13px; -fx-text-fill: #666666; -fx-font-family: 'Segoe UI'; -fx-padding: 20 40 0 40; -fx-text-alignment: center;"/>
     </VBox>
@@ -41,7 +41,7 @@
         <VBox alignment="CENTER" spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 3);">
             <ImageView fitHeight="40" fitWidth="40" preserveRatio="true">
                 <image>
-                    <Image url="@../images/BytemeLogo.png" />
+                    <Image url="@../images/HomePageTip.png" />
                 </image>
             </ImageView>
             <Label text="Today's Tip" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-font-family: 'Segoe UI';"/>
@@ -52,7 +52,7 @@
         <VBox alignment="CENTER" spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 3);">
             <ImageView fitHeight="40" fitWidth="40" preserveRatio="true">
                 <image>
-                    <Image url="@../images/BytemeLogo.png" />
+                    <Image url="@../images/HomePageLesson.png" />
                 </image>
             </ImageView>
             <Label text="Upcoming Lesson" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-font-family: 'Segoe UI';"/>
