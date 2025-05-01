@@ -29,7 +29,8 @@
     <!-- CTA Button and Tip Message -->
     <VBox alignment="CENTER" spacing="10">
         <Button fx:id="ctaButton" text="Start creating custom courses →"
-                style="-fx-background-color: #a799ff; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-family: 'Segoe UI Semibold'; -fx-background-radius: 20px; -fx-padding: 10 25; -fx-cursor: hand;"/>
+                style="-fx-background-color: #a799ff; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-family: 'Segoe UI Semibold'; -fx-background-radius: 20px; -fx-padding: 10 25; -fx-cursor: hand;"
+                onMouseClicked="#handleCoursesClick"/>
         <Label fx:id="tipLabel" text="Head to the Courses tab to view or edit your existing course templates."
                wrapText="true"
                style="-fx-font-size: 13px; -fx-text-fill: #666666; -fx-font-family: 'Segoe UI'; -fx-padding: 20 40 0 40; -fx-text-alignment: center;"/>
