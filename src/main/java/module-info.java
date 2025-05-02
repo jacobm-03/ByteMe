@@ -8,7 +8,9 @@ module com.bytemeapplication {
     requires java.sql; //
     requires org.apache.pdfbox;
     requires org.json;
-    requires java.net.http;       // ✅ Add this line
+    requires java.net.http;
+
+    exports com.byteme.bytemeapplication.Utils;
 
 
 
