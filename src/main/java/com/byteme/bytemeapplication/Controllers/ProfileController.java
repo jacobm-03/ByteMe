@@ -46,16 +46,16 @@ public class ProfileController {
         User user = Session.getCurrentUser();
 
         if (user != null) {
-            nameLabel.setText(user.getFullName());
+            nameLabel.setText((Session.getTitle() != null ? Session.getTitle() + " " : "") + user.getFullName());
             emailLabel.setText(user.getEmail());
-            yearLabel.setText(" ");
+            yearLabel.setText(Session.getYear() != null ? Session.getYear() : "");
         } else {
             nameLabel.setText("Student Name");
             emailLabel.setText("StudentName@email.com");
             yearLabel.setText("Year 12");
         }
 
-         editProfileBtn.setOnAction(e -> handleEditProfileClick());
+        editProfileBtn.setOnAction(e -> handleEditProfileClick());
         progressBtn.setOnAction(e -> handleProgressClick());
 
         for (Node node : yearSelector.getChildren()) {
@@ -96,6 +96,7 @@ public class ProfileController {
         ToggleButton selected = (ToggleButton) yearToggleGroup.getSelectedToggle();
         if (selected != null) {
             yearLabel.setText(selected.getText());
+            Session.setYear(selected.getText());
         }
 
         try (Connection conn = DatabaseConnection.getInstance()) {
