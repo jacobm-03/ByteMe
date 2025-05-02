@@ -14,4 +14,8 @@ module com.bytemeapplication {
 
     exports com.byteme.bytemeapplication.Application;
     exports com.byteme.bytemeapplication.Controllers;
+    exports com.byteme.bytemeapplication.Models;
+
+    // Allow reflection (used by JUnit) for testing
+    opens com.byteme.bytemeapplication.Models to org.junit.jupiter;
 }
