@@ -138,6 +138,18 @@
             <Button fx:id="deleteAccountBtn" text="Delete Account"
                     onAction="#handleDeleteAccount"
                     style="-fx-background-color: #b99ff2; -fx-text-fill: white; -fx-background-radius: 10;"/>
+
+            <!-- Change Password -->
+            <Label text="Change Password" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+
+            <PasswordField fx:id="oldPasswordField" promptText="Old Password" />
+            <PasswordField fx:id="newPasswordField" promptText="New Password" />
+            <PasswordField fx:id="confirmNewPasswordField" promptText="Confirm New Password" />
+
+            <Button fx:id="changePasswordBtn" text="Change Password"
+                    onAction="#handleChangePassword"
+                    style="-fx-background-color: #6a5acd; -fx-text-fill: white; -fx-background-radius: 20px;"/>
+
         </VBox>
     </StackPane>
 

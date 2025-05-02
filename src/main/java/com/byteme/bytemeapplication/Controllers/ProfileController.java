@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-
 public class ProfileController {
 
     @FXML private Label nameLabel;
@@ -35,6 +34,10 @@ public class ProfileController {
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
     @FXML private FlowPane yearSelector;
+
+    @FXML private PasswordField oldPasswordField;
+    @FXML private PasswordField newPasswordField;
+    @FXML private PasswordField confirmNewPasswordField;
 
     private ToggleGroup yearToggleGroup = new ToggleGroup();
 
@@ -86,14 +89,36 @@ public class ProfileController {
         String title = titleField.getText();
         String first = firstNameField.getText();
         String last = lastNameField.getText();
+        String fullName = (title + " " + first + " " + last).trim();
 
-        nameLabel.setText((title + " " + first + " " + last).trim());
+        nameLabel.setText(fullName);
 
         ToggleButton selected = (ToggleButton) yearToggleGroup.getSelectedToggle();
         if (selected != null) {
             yearLabel.setText(selected.getText());
         }
+
+        try (Connection conn = DatabaseConnection.getInstance()) {
+            int userId = Session.getCurrentUser().getId();
+
+            String sql = "UPDATE users SET firstname = ?, lastname = ? WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, first);
+            stmt.setString(2, last);
+            stmt.setInt(3, userId);
+            stmt.executeUpdate();
+
+            // Update session info as well
+            User updatedUser = new User(userId, first, last, Session.getCurrentUser().getEmail());
+            Session.setCurrentUser(updatedUser);
+
+            showAlert("✅ Profile updated successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("❌ Error updating profile: " + e.getMessage());
+        }
     }
+
 
     @FXML
     private void handleDeleteAccount(ActionEvent event) {
@@ -162,5 +187,57 @@ public class ProfileController {
         alert.showAndWait();
     }
 
+    @FXML
+    private void handleChangePassword(ActionEvent event) {
+        String oldPassword = oldPasswordField.getText();
+        String newPassword = newPasswordField.getText();
+        String confirmNewPassword = confirmNewPasswordField.getText();
+
+        if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmNewPassword.isEmpty()) {
+            showAlert("Please fill in all password fields.");
+            return;
+        }
+
+        if (!newPassword.equals(confirmNewPassword)) {
+            showAlert("New passwords do not match.");
+            return;
+        }
+
+        try (Connection conn = DatabaseConnection.getInstance()) {
+            int userId = Session.getCurrentUser().getId();
+
+            // Check if old password is correct
+            String checkSql = "SELECT password FROM users WHERE id = ?";
+            PreparedStatement checkStmt = conn.prepareStatement(checkSql);
+            checkStmt.setInt(1, userId);
+            var rs = checkStmt.executeQuery();
+
+            if (rs.next()) {
+                String actualOldPassword = rs.getString("password");
+                if (!actualOldPassword.equals(oldPassword)) {
+                    showAlert("Old password is incorrect.");
+                    return;
+                }
+            }
+
+            // Update password
+            String updateSql = "UPDATE users SET password = ? WHERE id = ?";
+            PreparedStatement updateStmt = conn.prepareStatement(updateSql);
+            updateStmt.setString(1, newPassword);
+            updateStmt.setInt(2, userId);
+            updateStmt.executeUpdate();
+
+            showAlert("✅ Password changed successfully!");
+
+            // Clear fields after success
+            oldPasswordField.clear();
+            newPasswordField.clear();
+            confirmNewPasswordField.clear();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("❌ Error: " + e.getMessage());
+        }
+    }
 
 }
