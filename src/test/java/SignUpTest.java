@@ -5,6 +5,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SignUpTest {
+    // Set to simulate existing emails
     private final Set<String> emailExists = new HashSet<>();
 
     private boolean isValidPassword(String password) {

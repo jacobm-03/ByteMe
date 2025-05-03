@@ -4,13 +4,16 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginTest {
+    // Test user creation
     private final String testEmail = "Jim.Jones@gmail.com";
     private final String testPass = "P@ssW0rd8#";
 
     private User TestAuth(String email, String password) {
+        // Check if email or password is null or blank
         if (email == null || password == null || email.isBlank() || password.isBlank()) {
             return null;
         }
+        // Check if credentials match
         if (email.equalsIgnoreCase(testEmail) && password.equals(testPass)) {
             return new User(102, "Jim", "Jones", testEmail);
         }
