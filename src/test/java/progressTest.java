@@ -51,4 +51,40 @@ public class progressTest {
         assertEquals(0, average, "Average should be 0 when there are no scores");
         assertEquals(0, scores.size(), "Quiz count should be 0 for empty list");
     }
+
+
+    //Test with a single score
+    @Test
+    public void testSingleScoreAverage() {
+        List<Double> scores = List.of(92.0);
+        double total = scores.get(0);
+        double average = total / scores.size();
+        assertEquals(92.0, average, 0.01, "Average should equal the only score");
+    }
+
+    //Test with all scores with zeroes
+    @Test
+    public void testAllZeroScores(){
+        List<Double> scores = Arrays.asList(0.0, 0.0, 0.0);
+        double total = 0;
+        for (double score : scores) {
+            total += score;
+        }
+        double average = total / scores.size();
+        assertEquals(0.0, average, 0.01, "Average of all zero scores should be 0");
+    }
+
+    //Test Mixed scores with high, medium and low scores
+    @Test
+    public void testMixedScoresAverage(){
+        List<Double> scores = Arrays.asList(100.0, 20.0, 50.0, 30.0);
+        double total = 0;
+        for (double score : scores) {
+            total += score;
+        }
+        double average = total / scores.size();
+        assertEquals(50.0, average, 0.01, "Average should be 50.0");
+    }
+
+
 }
