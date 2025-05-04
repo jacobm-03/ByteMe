@@ -24,7 +24,7 @@ public class OllamaTest {
     @Test
     void testGenerateQuizFromPDF() throws IOException {
         // 🔁 Make sure this file exists in the correct path
-        String pdfPath = "src/main/resources/com/byteme/bytemeapplication/sampleFiles/EGB242 - Assignment_1_Task_Description.pdf"
+        String pdfPath = "src/main/resources/com/byteme/bytemeapplication/sampleFiles/sampleFile.pdf"
                 ;
         File file = new File(pdfPath);
 
