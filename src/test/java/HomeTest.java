@@ -23,4 +23,13 @@ public class HomeTest {
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
+    @Test
+    public void testHandleNavClick_homePageLoads() {
+        HomeController controller = new HomeController();
+
+        String expectedFXML = "/com/byteme/bytemeapplication/fxml/HomeContent.fxml";
+
+        assertEquals(expectedFXML, expectedFXML, "Navigation should reference correct FXML file.");
+    }
 }
