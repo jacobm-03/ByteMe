@@ -17,13 +17,17 @@
         <HBox fx:id="loginPane" alignment="CENTER" styleClass="login-pane" prefWidth="600" spacing="20">
             <VBox alignment="CENTER" spacing="20">
 
-
-                <ImageView fitHeight="240" preserveRatio="true" smooth="true">
-                    <image>
-                        <Image url="@../images/BytemeLogo.png"/>
-                    </image>
-                </ImageView>
-
+                <!-- Logo becomes clickable reset button -->
+                <Button fx:id="resetDbBtn" onAction="#handleResetDatabase"
+                        style="-fx-background-color: transparent; -fx-padding: 0; -fx-cursor: hand;">
+                    <graphic>
+                        <ImageView fitHeight="240" preserveRatio="true" smooth="true">
+                            <image>
+                                <Image url="@../images/BytemeLogo.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
 
                 <!-- LOGIN FORM to fade -->
                 <VBox fx:id="loginForm" spacing="10" opacity="1" visible="true" alignment="CENTER">
@@ -114,8 +118,6 @@
                                 StackPane.alignment="CENTER_RIGHT"/>
                     </StackPane>
 
-
-
                     <!-- Password Requirements in Two Rows -->
                     <VBox spacing="5">
                         <HBox spacing="10" alignment="CENTER">
@@ -137,7 +139,6 @@
                     </StackPane>
 
                 </VBox>
-
 
                 <Button text="Sign Up" onAction="#handleSignUpAndSwitch" styleClass="action-btn"/>
 

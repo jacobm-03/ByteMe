@@ -26,6 +26,7 @@
     import javafx.event.ActionEvent;
 
     import javafx.scene.control.Button;
+    import java.sql.Statement;
 
 
     public class LoginController {
@@ -55,6 +56,7 @@
 
         private boolean isSignupPasswordVisible = false;
         private boolean isConfirmPasswordVisible = false;
+
 
 
 
@@ -337,6 +339,35 @@
 
             toggleConfirmPassword.setText(isConfirmPasswordVisible ? "🙈" : "👁");
         }
+
+        @FXML
+        private void handleResetDatabase() {
+            try (Connection conn = DatabaseConnection.getInstance();
+                 Statement stmt = conn.createStatement()) {
+
+                stmt.executeUpdate("DELETE FROM user_scores");
+                stmt.executeUpdate("DELETE FROM subjects");
+                stmt.executeUpdate("DELETE FROM users");
+
+                System.out.println("✅ Database has been reset (all data cleared)");
+
+                // Optionally show a UI confirmation
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Database Reset");
+                alert.setHeaderText(null);
+                alert.setContentText("All data has been cleared from the database.");
+                alert.showAndWait();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Reset Failed");
+                alert.setHeaderText("An error occurred.");
+                alert.setContentText("Failed to reset the database.");
+                alert.showAndWait();
+            }
+        }
+
 
         @FXML
         private void handleGoogleLogin(ActionEvent event) {
