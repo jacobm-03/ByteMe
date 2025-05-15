@@ -21,16 +21,16 @@ import java.sql.PreparedStatement;
 
 public class ProfileController {
 
-    @FXML private Label nameLabel;
+    @FXML private Label fullNameLabel;
     @FXML private Label emailLabel;
     @FXML private Label yearLabel;
 
-    @FXML private Button editProfileBtn;
-    @FXML private Button progressBtn;
-    @FXML private Button goToCoursesBtn;
+    @FXML private Button editProfileButton;
+    @FXML private Button progressButton;
+    @FXML private Button navigateToCoursesButton;
 
-    @FXML private StackPane modalOverlay;
-    @FXML private TextField titleField;
+    @FXML private StackPane editProfileModalOverlay;
+    @FXML private TextField userTitleField;
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
     @FXML private FlowPane yearSelector;
@@ -46,17 +46,17 @@ public class ProfileController {
         User user = Session.getCurrentUser();
 
         if (user != null) {
-            nameLabel.setText((Session.getTitle() != null ? Session.getTitle() + " " : "") + user.getFullName());
+            fullNameLabel.setText((Session.getTitle() != null ? Session.getTitle() + " " : "") + user.getFullName());
             emailLabel.setText(user.getEmail());
             yearLabel.setText(Session.getYear() != null ? Session.getYear() : "");
         } else {
-            nameLabel.setText("Student Name");
+            fullNameLabel.setText("Student Name");
             emailLabel.setText("StudentName@email.com");
             yearLabel.setText("Year 12");
         }
 
-        editProfileBtn.setOnAction(e -> handleEditProfileClick());
-        progressBtn.setOnAction(e -> handleProgressClick());
+        editProfileButton.setOnAction(e -> handleEditProfileClick());
+        progressButton.setOnAction(e -> handleProgressClick());
 
         for (Node node : yearSelector.getChildren()) {
             if (node instanceof ToggleButton button) {
@@ -70,8 +70,8 @@ public class ProfileController {
         System.out.println("Edit Profile clicked!");
 
         // Show the modal
-        modalOverlay.setVisible(true);
-        modalOverlay.setManaged(true);
+        editProfileModalOverlay.setVisible(true);
+        editProfileModalOverlay.setManaged(true);
 
         // Auto-fill fields with session user data
         User user = Session.getCurrentUser();
@@ -83,15 +83,15 @@ public class ProfileController {
 
     @FXML
     private void handleSaveChanges() {
-        modalOverlay.setVisible(false);
-        modalOverlay.setManaged(false);
+        editProfileModalOverlay.setVisible(false);
+        editProfileModalOverlay.setManaged(false);
 
-        String title = titleField.getText();
-        String first = firstNameField.getText();
-        String last = lastNameField.getText();
-        String fullName = (title + " " + first + " " + last).trim();
+        String userTitle = userTitleField.getText();
+        String firstName = firstNameField.getText();
+        String lastName = lastNameField.getText();
+        String fullName = (userTitle + " " + firstName + " " + lastName).trim();
 
-        nameLabel.setText(fullName);
+        fullNameLabel.setText(fullName);
 
         ToggleButton selected = (ToggleButton) yearToggleGroup.getSelectedToggle();
         if (selected != null) {
@@ -104,13 +104,13 @@ public class ProfileController {
 
             String sql = "UPDATE users SET firstname = ?, lastname = ? WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, first);
-            stmt.setString(2, last);
+            stmt.setString(1, firstName);
+            stmt.setString(2, lastName);
             stmt.setInt(3, userId);
             stmt.executeUpdate();
 
             // Update session info as well
-            User updatedUser = new User(userId, first, last, Session.getCurrentUser().getEmail());
+            User updatedUser = new User(userId, firstName, lastName, Session.getCurrentUser().getEmail());
             Session.setCurrentUser(updatedUser);
 
             showAlert("✅ Profile updated successfully!");
@@ -155,7 +155,7 @@ public class ProfileController {
     private void handleGoToCourses(ActionEvent event) {
         try {
             Node courseView = FXMLLoader.load(getClass().getResource("/com/byteme/bytemeapplication/fxml/CourseView.fxml"));
-            Node contentArea = goToCoursesBtn.getScene().lookup("#contentArea");
+            Node contentArea = navigateToCoursesButton.getScene().lookup("#contentArea");
             if (contentArea instanceof Pane pane) {
                 pane.getChildren().clear();
                 pane.getChildren().add(courseView);
@@ -171,7 +171,7 @@ public class ProfileController {
         try {
             // Load the ProgressController view
             Node progressView = FXMLLoader.load(getClass().getResource("/com/byteme/bytemeapplication/fxml/ProgressView.fxml"));
-            Node contentArea = progressBtn.getScene().lookup("#contentArea");  // Assuming there is a contentArea in your layout
+            Node contentArea = progressButton.getScene().lookup("#contentArea");  // Assuming there is a contentArea in your layout
 
             if (contentArea instanceof Pane pane) {
                 pane.getChildren().clear();  // Clear current content
