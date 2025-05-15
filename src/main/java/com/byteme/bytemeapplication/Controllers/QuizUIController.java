@@ -1,10 +1,12 @@
 package com.byteme.bytemeapplication.Controllers;
 
+
 import com.byteme.bytemeapplication.Database.DatabaseConnection;
 import com.byteme.bytemeapplication.Helpers.Session;
 import com.byteme.bytemeapplication.Models.QuizQuestion;
 import com.byteme.bytemeapplication.Models.User;
 import com.byteme.bytemeapplication.Utils.QuizDataHolder;
+
 import com.byteme.bytemeapplication.Utils.QuizParser;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -15,6 +17,7 @@ import javafx.scene.text.TextFlow;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuizUIController {
@@ -31,6 +34,7 @@ public class QuizUIController {
     @FXML private Label resultLabel;
 
     private List<QuizQuestion> questions;
+    private List<String> userAnswers = new ArrayList<>();
     private int currentIndex = 0;
     private int score = 0;
     private String selectedAnswer = null;
@@ -79,19 +83,18 @@ public class QuizUIController {
             score++;
         }
 
+        userAnswers.add(selectedAnswer);
         currentIndex++;
+
         if (currentIndex >= questions.size()) {
-            questionTextFlow.setVisible(false);
-            optionA.setVisible(false);
-            optionB.setVisible(false);
-            optionC.setVisible(false);
-            optionD.setVisible(false);
-            nextButton.setVisible(false);
-            resultLabel.setVisible(true);
-            resultLabel.setText("🎉 Final Score: " + score + " out of " + questions.size());
-            finishButton.setVisible(true);
+            QuizDataHolder.setQuizResults(questions, userAnswers, score);
             saveScoreToDatabase();
-            printAverageScoreForSubject(); // 👈 Add this
+            printAverageScoreForSubject();
+            try {
+                HomeController.getInstance().loadContent("/com/byteme/bytemeapplication/fxml/QuizResultView.fxml");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             showQuestion();
         }
@@ -151,7 +154,7 @@ public class QuizUIController {
         JOIN subjects s ON us.subject_id = s.id
         JOIN users u ON us.user_id = u.id
         WHERE us.user_id = ? AND us.subject_id = ?
-    """;
+        """;
 
         try (Connection conn = DatabaseConnection.getInstance();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -172,7 +175,4 @@ public class QuizUIController {
             System.err.println("❌ Failed to compute average score: " + e.getMessage());
         }
     }
-
-
-
 }
