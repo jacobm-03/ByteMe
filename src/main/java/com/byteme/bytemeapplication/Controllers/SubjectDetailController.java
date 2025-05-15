@@ -16,9 +16,10 @@ import javafx.scene.shape.ArcType;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import javafx.scene.control.TextInputDialog;
 import java.io.File;
 import java.sql.*;
+import javafx.scene.control.TextArea;
 
 public class SubjectDetailController {
 
@@ -118,6 +119,35 @@ public class SubjectDetailController {
             simulateUpload(uploadedFile);
         }
     }
+    @FXML
+    private void handleTextInput(MouseEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Enter Custom Text");
+        dialog.setHeaderText("✍Custom Text Input");
+        dialog.setContentText("Paste or type the content to generate questions from:");
+        dialog.setGraphic(null);
+
+        // Expand the input field using a TextArea and set it into the dialog
+        TextArea textArea = new TextArea();
+        textArea.setPrefRowCount(10);
+        textArea.setPrefColumnCount(50);
+        textArea.setWrapText(true);
+
+        dialog.getDialogPane().setContent(new VBox(new Label("Paste your text below:"), textArea));
+        dialog.getDialogPane().setPrefSize(600, 300); // Wider dialog
+
+        dialog.showAndWait().ifPresent(dummy -> {
+            String inputText = textArea.getText();
+            if (inputText.isBlank()) {
+                statusLabel.setText("⚠️ No text provided.");
+            } else {
+                QuizDataHolder.setExtractedText(inputText);
+                QuizDataHolder.setFileName("CustomText.txt");
+                goToQuizOptions(inputText, "CustomText.txt");
+            }
+        });
+    }
+
 
     private void simulateUpload(File file) {
         Task<Void> uploadTask = new Task<>() {
