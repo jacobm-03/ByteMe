@@ -205,55 +205,64 @@ public class ProfileController {
 
     @FXML
     private void updateUserPassword(ActionEvent event) {
-        String oldPassword = oldPasswordField.getText();
-        String newPassword = newPasswordField.getText();
-        String confirmNewPassword = confirmNewPasswordField.getText();
-
-        if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmNewPassword.isEmpty()) {
-            showInfoAlert("Please fill in all password fields.");
-            return;
-        }
-
-        if (!newPassword.equals(confirmNewPassword)) {
-            showInfoAlert("New passwords do not match.");
-            return;
-        }
+        if (!arePasswordFieldsValid()) return;
 
         try (Connection conn = DatabaseConnection.getInstance()) {
-            int userId = Session.getCurrentUser().getId();
-
-            // Check if old password is correct
-            String checkSql = "SELECT password FROM users WHERE id = ?";
-            PreparedStatement checkStmt = conn.prepareStatement(checkSql);
-            checkStmt.setInt(1, userId);
-            var rs = checkStmt.executeQuery();
-
-            if (rs.next()) {
-                String actualOldPassword = rs.getString("password");
-                if (!actualOldPassword.equals(oldPassword)) {
-                    showInfoAlert("Old password is incorrect.");
-                    return;
-                }
-            }
-
-            // Update password
-            String updateSql = "UPDATE users SET password = ? WHERE id = ?";
-            PreparedStatement updateStmt = conn.prepareStatement(updateSql);
-            updateStmt.setString(1, newPassword);
-            updateStmt.setInt(2, userId);
-            updateStmt.executeUpdate();
-
+            if (!isCurrentPasswordCorrect(conn)) return;
+            updatePasswordInDatabase(conn);
             showInfoAlert("✅ Password changed successfully!");
-
-            // Clear fields after success
-            oldPasswordField.clear();
-            newPasswordField.clear();
-            confirmNewPasswordField.clear();
-
+            clearPasswordFields();
         } catch (Exception e) {
             e.printStackTrace();
             showInfoAlert("❌ Error: " + e.getMessage());
         }
     }
+
+    private boolean arePasswordFieldsValid() {
+        if (oldPasswordField.getText().isEmpty() ||
+                newPasswordField.getText().isEmpty() ||
+                confirmNewPasswordField.getText().isEmpty()) {
+            showInfoAlert("Please fill in all password fields.");
+            return false;
+        }
+
+        if (!newPasswordField.getText().equals(confirmNewPasswordField.getText())) {
+            showInfoAlert("New passwords do not match.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isCurrentPasswordCorrect(Connection conn) throws Exception {
+        String sql = "SELECT password FROM users WHERE id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, Session.getCurrentUser().getId());
+        var rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            if (!rs.getString("password").equals(oldPasswordField.getText())) {
+                showInfoAlert("Old password is incorrect.");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void updatePasswordInDatabase(Connection conn) throws Exception {
+        String sql = "UPDATE users SET password = ? WHERE id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, newPasswordField.getText());
+        stmt.setInt(2, Session.getCurrentUser().getId());
+        stmt.executeUpdate();
+    }
+
+    private void clearPasswordFields() {
+        oldPasswordField.clear();
+        newPasswordField.clear();
+        confirmNewPasswordField.clear();
+    }
+
 
 }
