@@ -79,12 +79,16 @@ public class ProfileController {
     @FXML
     private void handleEditProfileClick() {
         System.out.println("Edit Profile clicked!");
+        showEditProfileModal();
+        prefillEditFormFields();
+    }
 
-        // Show the modal
+    private void showEditProfileModal() {
         editProfileModalOverlay.setVisible(true);
         editProfileModalOverlay.setManaged(true);
+    }
 
-        // Auto-fill fields with session user data
+    private void prefillEditFormFields() {
         User user = Session.getCurrentUser();
         if (user != null) {
             firstNameField.setText(user.getFirstName());
