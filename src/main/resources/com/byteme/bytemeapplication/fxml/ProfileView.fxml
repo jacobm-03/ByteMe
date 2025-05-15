@@ -84,7 +84,7 @@
             </ImageView>
 
             <Button fx:id="navigateToCoursesBtn"
-                    onAction="#handleGoToCourses"
+                    onAction="#navigateToCoursesPage"
                     text="+"
                     style="-fx-background-color: #a799ff; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-family: 'Segoe UI';
                      -fx-background-radius: 20px; -fx-padding: 10 35;"/>
@@ -131,23 +131,23 @@
             </FlowPane>
 
             <!-- Save -->
-            <Button text="Save Changes" onAction="#handleSaveChanges"
+            <Button text="Save Changes" onAction="#updateProfileDetails"
                     style="-fx-background-color: #b99ff2; -fx-text-fill: white; -fx-background-radius: 10;"/>
 
             <!-- Delete Account -->
             <Button fx:id="deleteAccountBtn" text="Delete Account"
-                    onAction="#handleDeleteAccount"
+                    onAction="#confirmAndDeleteAccount"
                     style="-fx-background-color: #b99ff2; -fx-text-fill: white; -fx-background-radius: 10;"/>
 
             <!-- Change Password -->
             <Label text="Change Password" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
 
-            <PasswordField fx:id="oldPasswordField" promptText="Old Password" />
+            <PasswordField fx:id="currentPasswordField" promptText="Old Password" />
             <PasswordField fx:id="newPasswordField" promptText="New Password" />
             <PasswordField fx:id="confirmNewPasswordField" promptText="Confirm New Password" />
 
             <Button fx:id="changePasswordBtn" text="Change Password"
-                    onAction="#handleChangePassword"
+                    onAction="#updateUserPassword"
                     style="-fx-background-color: #6a5acd; -fx-text-fill: white; -fx-background-radius: 20px;"/>
 
         </VBox>
