@@ -26,7 +26,7 @@ public class QuizGenerator {
             String difficulty = "Medium";
             int numQuestions = 5;
 
-            System.out.println("🤖 Sending prompt to Ollama (model: mistral)...");
+            System.out.println("🤖 Sending aprompt to Ollama (model: mistral)...");
             String quiz = OllamaClient.generateQuiz(extractedText, difficulty, numQuestions);
 
             System.out.println("\n📘 Generated Quiz:\n");
