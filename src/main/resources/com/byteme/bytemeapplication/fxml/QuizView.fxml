@@ -33,7 +33,13 @@
         <Button fx:id="optionC" onAction="#handleOptionClick" wrapText="true" maxWidth="Infinity" styleClass="option-button"/>
         <Button fx:id="optionD" onAction="#handleOptionClick" wrapText="true" maxWidth="Infinity" styleClass="option-button"/>
     </VBox>
-
+    <VBox fx:id="answerSummaryBox"
+          visible="false"
+          spacing="10"
+          alignment="CENTER"
+          maxWidth="600"
+          style="-fx-padding: 20; -fx-background-color: white; -fx-border-color: #cccccc; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);">
+    </VBox>
     <!-- SUBMIT + RESULT -->
     <VBox spacing="20" alignment="CENTER">
         <Button fx:id="nextButton"
@@ -52,6 +58,8 @@
                 onAction="#handleFinish"
                 style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 30; -fx-background-radius: 10;"/>
     </VBox>
+
+
 
 
 </VBox>

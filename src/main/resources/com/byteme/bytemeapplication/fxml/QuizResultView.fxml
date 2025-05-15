@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.byteme.bytemeapplication.Controllers.QuizResultController"
+      alignment="TOP_CENTER"
+      spacing="20"
+      style="-fx-background-color: #f8f3ff; -fx-padding: 40;">
+
+    <!-- Title / Final Score -->
+    <Label fx:id="scoreLabel"
+           style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #4a4a4a;"/>
+
+    <!-- Answer Summary Scroll Area -->
+    <ScrollPane fitToWidth="true" prefHeight="400" maxHeight="500" style="-fx-background-color: transparent;">
+        <VBox fx:id="answerBox"
+              spacing="10"
+              alignment="TOP_CENTER"
+              style="-fx-padding: 20; -fx-background-color: white; -fx-border-color: #cccccc; -fx-border-radius: 10; -fx-background-radius: 10;">
+        </VBox>
+    </ScrollPane>
+    <Button text="Retry Quiz"
+            onAction="#handleRetryQuiz"
+            style="-fx-background-color: #6a5acd; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 30; -fx-background-radius: 10;" />
+
+    <!-- Back to Courses Button -->
+    <Button text="Back to Courses"
+            onAction="#handleBackToCourses"
+            style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 30; -fx-background-radius: 10;"/>
+
+</VBox>

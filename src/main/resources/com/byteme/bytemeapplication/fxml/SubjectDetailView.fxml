@@ -58,11 +58,12 @@
                 <Label text="Doc" style="-fx-font-size: 16px;" />
             </VBox>
 
-            <VBox alignment="CENTER"
+            <VBox fx:id="textBox" alignment="CENTER" onMouseClicked="#handleTextInput"
                   style="-fx-background-color: #f3f3f3;
                          -fx-padding: 25;
-                         -fx-background-radius: 20px;">
-                <Label text="✒" style="-fx-font-size: 30px;" />
+                         -fx-background-radius: 20px;
+                         -fx-cursor: hand;">
+                <Label text="✍" style="-fx-font-size: 30px;" />
                 <Label text="Text" style="-fx-font-size: 16px;" />
             </VBox>
 

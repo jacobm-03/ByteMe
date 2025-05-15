@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.chart.*?>
 <?import javafx.scene.text.*?>
 
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.byteme.bytemeapplication.Controllers.ProgressController"
-           style="-fx-background-color: #f2eaff;">
+           style="-fx-background-color: #f4f0ff;">
 
     <ScrollPane fitToWidth="true"
                 style="-fx-background-color: transparent;"
@@ -15,69 +14,66 @@
                 hbarPolicy="NEVER">
 
         <VBox alignment="TOP_CENTER"
-              spacing="30"
-              style="-fx-padding: 40; -fx-background-color: #f2eaff;">
+              spacing="40"
+              style="-fx-padding: 50; -fx-background-color: #f4f0ff;">
 
             <!-- Title and Subject ComboBox -->
             <HBox spacing="20" alignment="CENTER_LEFT" prefWidth="Infinity">
-                <Label text="📊 Progress Analysis" style="-fx-font-size: 26px; -fx-font-weight: bold;"/>
-                <ComboBox fx:id="subjectComboBox" promptText="Select Subject" prefWidth="200"/>
+                <Label text="📊 Progress Analysis" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #4a4a4a;"/>
+                <ComboBox fx:id="subjectComboBox" promptText="Select Subject" prefWidth="220" style="-fx-font-size: 14px;"/>
             </HBox>
 
-            <!-- Stats -->
+            <!-- Stats Cards -->
             <HBox spacing="30" alignment="CENTER">
                 <VBox spacing="10" alignment="CENTER"
-                      style="-fx-background-color: white; -fx-border-color: lightgray; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 15; -fx-pref-width: 130;">
-                    <Label text="Average" style="-fx-font-weight: bold;"/>
-                    <Label fx:id="averageLabel" style="-fx-font-size: 24px;"/>
+                      style="-fx-background-color: #ffffff; -fx-border-color: #dddddd; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 20; -fx-pref-width: 150;">
+                    <Label text="Average" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                    <Label fx:id="averageLabel" style="-fx-font-size: 26px; -fx-text-fill: #6a5acd;"/>
                 </VBox>
                 <VBox spacing="10" alignment="CENTER"
-                      style="-fx-background-color: white; -fx-border-color: lightgray; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 15; -fx-pref-width: 130;">
-                    <Label text="Quizzes Completed" style="-fx-font-weight: bold;"/>
-                    <Label fx:id="quizzesCompletedLabel" style="-fx-font-size: 24px;"/>
+                      style="-fx-background-color: #ffffff; -fx-border-color: #dddddd; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 20; -fx-pref-width: 150;">
+                    <Label text="Quizzes Completed" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                    <Label fx:id="quizzesCompletedLabel" style="-fx-font-size: 26px; -fx-text-fill: #6a5acd;"/>
                 </VBox>
                 <VBox spacing="10" alignment="CENTER"
-                      style="-fx-background-color: white; -fx-border-color: lightgray; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 15; -fx-pref-width: 130;">
-                    <Label text="Time per Question" style="-fx-font-weight: bold;"/>
-                    <Label fx:id="timePerQuestionLabel" style="-fx-font-size: 24px;"/>
+                      style="-fx-background-color: #ffffff; -fx-border-color: #dddddd; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 20; -fx-pref-width: 150;">
+                    <Label text="Time per Question" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                    <Label fx:id="timePerQuestionLabel" style="-fx-font-size: 26px; -fx-text-fill: #6a5acd;"/>
                 </VBox>
                 <VBox spacing="10" alignment="CENTER"
-                      style="-fx-background-color: white; -fx-border-color: lightgray; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 15; -fx-pref-width: 130;">
-                    <Label text="Streak" style="-fx-font-weight: bold;"/>
-                    <Label fx:id="streakLabel" style="-fx-font-size: 24px;"/>
+                      style="-fx-background-color: #ffffff; -fx-border-color: #dddddd; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 20; -fx-pref-width: 150;">
+                    <Label text="Streak" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                    <Label fx:id="streakLabel" style="-fx-font-size: 26px; -fx-text-fill: #6a5acd;"/>
                 </VBox>
             </HBox>
 
-            <!-- Chart and Current Topic -->
+            <!-- Score Overview and Topic Info -->
             <HBox spacing="40" alignment="CENTER">
-                <LineChart fx:id="quizPerformanceChart" title="Quiz Performance" prefWidth="450" prefHeight="300"
-                           style="-fx-background-color: white; -fx-border-color: lightgray; -fx-border-radius: 10; -fx-background-radius: 10;">
+                <VBox spacing="15" alignment="TOP_LEFT"
+                      style="-fx-background-color: #ffffff; -fx-border-color: #dddddd; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20; -fx-max-height: Infinity;"
+                      prefWidth="600">
+                    <Label text="📈 Subject Score Overview"
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #4a4a4a;" />
+                    <VBox fx:id="chartVBox" spacing="10" alignment="CENTER_LEFT"/>
+                </VBox>
 
-                    <xAxis>
-                        <CategoryAxis label="Quiz"/>
-                    </xAxis>
-                    <yAxis>
-                        <NumberAxis label="Score"/>
-                    </yAxis>
-                </LineChart>
-
-                <VBox spacing="10" alignment="TOP_LEFT">
-                    <Label text="Current Topic" style="-fx-font-weight: bold;"/>
-                    <Text fx:id="currentTopic" style="-fx-font-size: 16px;"/>
+                <VBox spacing="15" alignment="TOP_LEFT">
+                    <Label text="Current Topic" style="-fx-font-weight: bold; -fx-font-size: 18px; -fx-text-fill: #333;"/>
+                    <Text fx:id="currentTopic" style="-fx-font-size: 16px; -fx-text-fill: #444;"/>
                 </VBox>
             </HBox>
 
-            <!-- Strengths and Weaknesses -->
+            <!-- Strengths and Weaknesses Panels -->
             <HBox spacing="40" alignment="CENTER">
-                <VBox spacing="10" alignment="TOP_CENTER"
-                      style="-fx-background-color: white; -fx-border-color: lightgray; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20; -fx-pref-width: 300;">
-                    <Label text="Strengths" style="-fx-font-weight: bold;"/>
-                    <ListView fx:id="strengthsList" prefHeight="150"/>
+                <VBox spacing="15" alignment="TOP_CENTER"
+                      style="-fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 25; -fx-pref-width: 320;">
+                    <Label text="Strengths" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #4caf50;"/>
+                    <ListView fx:id="strengthsList" prefHeight="180" style="-fx-border-color: lightgray;"/>
                 </VBox>
-                <VBox spacing="10" alignment="TOP_CENTER"
-                      style="-fx-background-color: white; -fx-border-color: lightgray; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20; -fx-pref-width: 300;">
-                    <Label text="Weaknesses" style="-fx-font-weight: bold;"/>
-                    <ListView fx:id="weaknessesList" prefHeight="150"/>
+                <VBox spacing="15" alignment="TOP_CENTER"
+                      style="-fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 25; -fx-pref-width: 320;">
+                    <Label text="Weaknesses" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #f44336;"/>
+                    <ListView fx:id="weaknessesList" prefHeight="180" style="-fx-border-color: lightgray;"/>
                 </VBox>
             </HBox>
 
