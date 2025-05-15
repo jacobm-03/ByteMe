@@ -56,7 +56,7 @@ public class ProfileController {
         }
 
         editProfileButton.setOnAction(e -> handleEditProfileClick());
-        progressButton.setOnAction(e -> handleProgressClick());
+        progressButton.setOnAction(e -> navigateToProgressPage());
 
         for (Node node : yearSelector.getChildren()) {
             if (node instanceof ToggleButton button) {
@@ -82,7 +82,7 @@ public class ProfileController {
     }
 
     @FXML
-    private void handleSaveChanges() {
+    private void updateProfileDetails() {
         editProfileModalOverlay.setVisible(false);
         editProfileModalOverlay.setManaged(false);
 
@@ -113,16 +113,16 @@ public class ProfileController {
             User updatedUser = new User(userId, firstName, lastName, Session.getCurrentUser().getEmail());
             Session.setCurrentUser(updatedUser);
 
-            showAlert("✅ Profile updated successfully!");
+            showInfoAlert("✅ Profile updated successfully!");
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("❌ Error updating profile: " + e.getMessage());
+            showInfoAlert("❌ Error updating profile: " + e.getMessage());
         }
     }
 
 
     @FXML
-    private void handleDeleteAccount(ActionEvent event) {
+    private void ConfirmAndDeleteAccount(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm Delete");
         alert.setHeaderText("Are you sure you want to delete your account?");
@@ -146,13 +146,13 @@ public class ProfileController {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                showAlert("Failed to delete account: " + e.getMessage());
+                showInfoAlert("Failed to delete account: " + e.getMessage());
             }
         }
     }
 
     @FXML
-    private void handleGoToCourses(ActionEvent event) {
+    private void navigateToCoursesPage(ActionEvent event) {
         try {
             Node courseView = FXMLLoader.load(getClass().getResource("/com/byteme/bytemeapplication/fxml/CourseView.fxml"));
             Node contentArea = navigateToCoursesButton.getScene().lookup("#contentArea");
@@ -167,7 +167,7 @@ public class ProfileController {
 
        //method to handle progress button click
     @FXML
-    private void handleProgressClick() {
+    private void navigateToProgressPage() {
         try {
             // Load the ProgressController view
             Node progressView = FXMLLoader.load(getClass().getResource("/com/byteme/bytemeapplication/fxml/ProgressView.fxml"));
@@ -182,25 +182,25 @@ public class ProfileController {
         }
     }
 
-    private void showAlert(String message) {
+    private void showInfoAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText(message);
         alert.showAndWait();
     }
 
     @FXML
-    private void handleChangePassword(ActionEvent event) {
+    private void updateUserPassword(ActionEvent event) {
         String oldPassword = oldPasswordField.getText();
         String newPassword = newPasswordField.getText();
         String confirmNewPassword = confirmNewPasswordField.getText();
 
         if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmNewPassword.isEmpty()) {
-            showAlert("Please fill in all password fields.");
+            showInfoAlert("Please fill in all password fields.");
             return;
         }
 
         if (!newPassword.equals(confirmNewPassword)) {
-            showAlert("New passwords do not match.");
+            showInfoAlert("New passwords do not match.");
             return;
         }
 
@@ -216,7 +216,7 @@ public class ProfileController {
             if (rs.next()) {
                 String actualOldPassword = rs.getString("password");
                 if (!actualOldPassword.equals(oldPassword)) {
-                    showAlert("Old password is incorrect.");
+                    showInfoAlert("Old password is incorrect.");
                     return;
                 }
             }
@@ -228,7 +228,7 @@ public class ProfileController {
             updateStmt.setInt(2, userId);
             updateStmt.executeUpdate();
 
-            showAlert("✅ Password changed successfully!");
+            showInfoAlert("✅ Password changed successfully!");
 
             // Clear fields after success
             oldPasswordField.clear();
@@ -237,7 +237,7 @@ public class ProfileController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("❌ Error: " + e.getMessage());
+            showInfoAlert("❌ Error: " + e.getMessage());
         }
     }
 
