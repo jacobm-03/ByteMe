@@ -43,10 +43,17 @@ public class ProfileController {
 
     @FXML
     private void initialize() {
+        displayUserDetails();
+        configureButtonActions();
+        groupYearToggleButtons();
+    }
+
+    private void displayUserDetails() {
         User user = Session.getCurrentUser();
 
         if (user != null) {
-            fullNameLabel.setText((Session.getTitle() != null ? Session.getTitle() + " " : "") + user.getFullName());
+            String title = Session.getTitle() != null ? Session.getTitle() + " " : "";
+            fullNameLabel.setText(title + user.getFullName());
             emailLabel.setText(user.getEmail());
             yearLabel.setText(Session.getYear() != null ? Session.getYear() : "");
         } else {
@@ -54,10 +61,14 @@ public class ProfileController {
             emailLabel.setText("StudentName@email.com");
             yearLabel.setText("Year 12");
         }
+    }
 
+    private void configureButtonActions() {
         editProfileButton.setOnAction(e -> handleEditProfileClick());
         progressButton.setOnAction(e -> navigateToProgressPage());
+    }
 
+    private void groupYearToggleButtons() {
         for (Node node : yearSelector.getChildren()) {
             if (node instanceof ToggleButton button) {
                 button.setToggleGroup(yearToggleGroup);
