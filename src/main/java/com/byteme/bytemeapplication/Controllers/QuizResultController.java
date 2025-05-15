@@ -44,6 +44,19 @@ public class QuizResultController {
     }
 
     @FXML
+    private void handleRetryQuiz() {
+        try {
+            // Clear previous results
+            QuizDataHolder.setQuizResults(null, null, 0);
+            // Reload quiz view
+            HomeController.getInstance().loadContent("/com/byteme/bytemeapplication/fxml/QuizView.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
     private void handleBackToCourses() {
         try {
             HomeController.getInstance().loadContent("/com/byteme/bytemeapplication/fxml/CourseView.fxml");

@@ -23,6 +23,9 @@
               style="-fx-padding: 20; -fx-background-color: white; -fx-border-color: #cccccc; -fx-border-radius: 10; -fx-background-radius: 10;">
         </VBox>
     </ScrollPane>
+    <Button text="Retry Quiz"
+            onAction="#handleRetryQuiz"
+            style="-fx-background-color: #6a5acd; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 30; -fx-background-radius: 10;" />
 
     <!-- Back to Courses Button -->
     <Button text="Back to Courses"
