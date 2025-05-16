@@ -111,6 +111,7 @@ public class ProgressController {
         weaknessesList.getItems().addAll("");
     }
 
+    //Shows the progress after the user has done a quiz and sorted into a chart
     private void loadProgressBars() {
         chartVBox.getChildren().clear();
         int userId = Session.getCurrentUser().getId();
