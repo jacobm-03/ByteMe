@@ -71,7 +71,7 @@ public class CourseController {
     }
 
     @FXML
-    private void toggleDelState() {
+    private void toggleDeleteState() {
         delState = !delState;
         if (delState) { // Pressing the button makes it darker to show the user it's in the delete state
             delStateBtn.setStyle("-fx-background-color: #a799ff; -fx-text-fill: white;" +

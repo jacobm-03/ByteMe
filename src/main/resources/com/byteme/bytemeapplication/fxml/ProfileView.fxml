@@ -83,7 +83,11 @@
                 </image>
             </ImageView>
 
+<<<<<<< HEAD
             <Button fx:id="navigateToCoursesBtn"
+=======
+            <Button fx:id="navigateToCoursesButton"
+>>>>>>> 4bfa8d673417c6e5a843d19ce081eeb7217aa434
                     onAction="#navigateToCoursesPage"
                     text="+"
                     style="-fx-background-color: #a799ff; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-family: 'Segoe UI';
@@ -136,7 +140,11 @@
 
             <!-- Delete Account -->
             <Button fx:id="deleteAccountBtn" text="Delete Account"
+<<<<<<< HEAD
                     onAction="#confirmAndDeleteAccount"
+=======
+                    onAction="#ConfirmAndDeleteAccount"
+>>>>>>> 4bfa8d673417c6e5a843d19ce081eeb7217aa434
                     style="-fx-background-color: #b99ff2; -fx-text-fill: white; -fx-background-radius: 10;"/>
 
             <!-- Change Password -->

@@ -62,7 +62,7 @@ public class HomeController {
         }
     }
 
-    // 🔽 EXTRACTED METHODS BELOW 🔽
+
 
     private void setUserNameLabel() {
         User user = Session.getCurrentUser();

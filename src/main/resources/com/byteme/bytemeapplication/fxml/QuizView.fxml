@@ -5,62 +5,66 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.byteme.bytemeapplication.Controllers.QuizUIController"
-      fx:id="container"
-      spacing="30"
-      alignment="TOP_CENTER"
-      fillWidth="true"
-      style="-fx-background-color: #f8f3ff; -fx-padding: 40;">
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.byteme.bytemeapplication.Controllers.QuizUIController"
+            fitToWidth="true"
+            fitToHeight="true"
+            pannable="true"
+            style="-fx-background: transparent;">
 
-    <!-- WRAPPED QUESTION -->
-    <TextFlow fx:id="questionTextFlow"
-              maxWidth="1000"
-              VBox.vgrow="NEVER"
-              textAlignment="CENTER"
-              style="-fx-padding: 10;">
-        <Text fx:id="questionText"
-              style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #333;"
-              wrappingWidth="1000"/>
-    </TextFlow>
+    <VBox fx:id="container"
+          spacing="30"
+          alignment="TOP_CENTER"
+          fillWidth="true"
+          style="-fx-background-color: #f8f3ff; -fx-padding: 40;">
 
+        <!-- WRAPPED QUESTION -->
+        <TextFlow fx:id="questionTextFlow"
+                  maxWidth="1000"
+                  VBox.vgrow="NEVER"
+                  textAlignment="CENTER"
+                  style="-fx-padding: 10;">
+            <Text fx:id="questionText"
+                  style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #333;"
+                  wrappingWidth="1000"/>
+        </TextFlow>
 
-    <!-- OPTION BUTTONS -->
-    <VBox spacing="15" maxWidth="700">
-        <Button fx:id="optionA" onAction="#handleOptionClick" wrapText="true" maxWidth="Infinity" styleClass="option-button"/>
-        <Button fx:id="optionB" onAction="#handleOptionClick" wrapText="true" maxWidth="Infinity" styleClass="option-button"/>
-        <Button fx:id="optionC" onAction="#handleOptionClick" wrapText="true" maxWidth="Infinity" styleClass="option-button"/>
-        <Button fx:id="optionD" onAction="#handleOptionClick" wrapText="true" maxWidth="Infinity" styleClass="option-button"/>
+        <!-- OPTION BUTTONS -->
+        <VBox spacing="15" maxWidth="700">
+            <Button fx:id="optionA" onAction="#handleOptionClick" wrapText="true" maxWidth="Infinity" styleClass="option-button"/>
+            <Button fx:id="optionB" onAction="#handleOptionClick" wrapText="true" maxWidth="Infinity" styleClass="option-button"/>
+            <Button fx:id="optionC" onAction="#handleOptionClick" wrapText="true" maxWidth="Infinity" styleClass="option-button"/>
+            <Button fx:id="optionD" onAction="#handleOptionClick" wrapText="true" maxWidth="Infinity" styleClass="option-button"/>
+        </VBox>
+
+        <!-- ANSWER SUMMARY -->
+        <VBox fx:id="answerSummaryBox"
+              visible="false"
+              spacing="10"
+              alignment="CENTER"
+              maxWidth="600"
+              style="-fx-padding: 20; -fx-background-color: white; -fx-border-color: #cccccc; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);">
+        </VBox>
+
+        <!-- SUBMIT + RESULT -->
+        <VBox spacing="20" alignment="CENTER">
+            <Button fx:id="nextButton"
+                    text="Submit"
+                    onAction="#handleNext"
+                    style="-fx-background-color: #6a5acd; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 30; -fx-background-radius: 10;"/>
+
+            <Label fx:id="resultLabel"
+                   visible="false"
+                   wrapText="true"
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #4a4a4a;"/>
+
+            <Button fx:id="finishButton"
+                    text="Back to Courses"
+                    visible="false"
+                    onAction="#handleFinish"
+                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 30; -fx-background-radius: 10;"/>
+        </VBox>
+
     </VBox>
-    <VBox fx:id="answerSummaryBox"
-          visible="false"
-          spacing="10"
-          alignment="CENTER"
-          maxWidth="600"
-          style="-fx-padding: 20; -fx-background-color: white; -fx-border-color: #cccccc; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);">
-    </VBox>
-    <!-- SUBMIT + RESULT -->
-    <VBox spacing="20" alignment="CENTER">
-        <Button fx:id="nextButton"
-                text="Submit"
-                onAction="#handleNext"
-                style="-fx-background-color: #6a5acd; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 30; -fx-background-radius: 10;"/>
-
-        <Label fx:id="resultLabel"
-               visible="false"
-               wrapText="true"
-               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #4a4a4a;"/>
-
-        <Button fx:id="finishButton"
-                text="Back to Courses"
-                visible="false"
-                onAction="#handleFinish"
-                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 30; -fx-background-radius: 10;"/>
-    </VBox>
-
-
-
-
-</VBox>
-
+</ScrollPane>

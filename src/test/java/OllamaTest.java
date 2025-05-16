@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+>>>>>>> 4bfa8d673417c6e5a843d19ce081eeb7217aa434
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,6 +26,8 @@ public class OllamaTest {
 
     @Test
     void testGenerateQuizFromPDF() throws IOException {
+        assumeTrue(System.getenv("CI") == null, "Skipping test in CI environment");
+
         // 🔁 Make sure this file exists in the correct path
         String pdfPath = "src/main/resources/com/byteme/bytemeapplication/sampleFiles/sampleFile.pdf"
                 ;

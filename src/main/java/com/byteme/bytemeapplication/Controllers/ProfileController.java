@@ -27,7 +27,11 @@ public class ProfileController {
 
     @FXML private Button editProfileButton;
     @FXML private Button progressButton;
+<<<<<<< HEAD
     @FXML private Button navigateToCoursesBtn;
+=======
+    @FXML private Button navigateToCoursesButton;
+>>>>>>> 4bfa8d673417c6e5a843d19ce081eeb7217aa434
 
     @FXML private StackPane editProfileModalOverlay;
     @FXML private TextField userTitleField;
@@ -43,10 +47,21 @@ public class ProfileController {
 
     @FXML
     private void initialize() {
+        displayUserDetails();
+        configureButtonActions();
+        groupYearToggleButtons();
+    }
+
+    private void displayUserDetails() {
         User user = Session.getCurrentUser();
 
         if (user != null) {
+<<<<<<< HEAD
             fullNameLabel.setText((Session.getTitle() != null ? Session.getTitle() + " " : "") + user.getFullName());
+=======
+            String title = Session.getTitle() != null ? Session.getTitle() + " " : "";
+            fullNameLabel.setText(title + user.getFullName());
+>>>>>>> 4bfa8d673417c6e5a843d19ce081eeb7217aa434
             emailLabel.setText(user.getEmail());
             yearLabel.setText(Session.getYear() != null ? Session.getYear() : "");
         } else {
@@ -54,10 +69,19 @@ public class ProfileController {
             emailLabel.setText("StudentName@email.com");
             yearLabel.setText("Year 12");
         }
+    }
 
+<<<<<<< HEAD
         editProfileButton.setOnAction(e -> handleEditProfileClick());
         progressButton.setOnAction(e -> navigateProgressPage());
+=======
+    private void configureButtonActions() {
+        editProfileButton.setOnAction(e -> handleEditProfileClick());
+        progressButton.setOnAction(e -> navigateToProgressPage());
+    }
+>>>>>>> 4bfa8d673417c6e5a843d19ce081eeb7217aa434
 
+    private void groupYearToggleButtons() {
         for (Node node : yearSelector.getChildren()) {
             if (node instanceof ToggleButton button) {
                 button.setToggleGroup(yearToggleGroup);
@@ -68,12 +92,22 @@ public class ProfileController {
     @FXML
     private void handleEditProfileClick() {
         System.out.println("Edit Profile clicked!");
+        showEditProfileModal();
+        prefillEditFormFields();
+    }
 
+<<<<<<< HEAD
         // Show the modal
         editProfileModalOverlay.setVisible(true);
         editProfileModalOverlay.setManaged(true);
+=======
+    private void showEditProfileModal() {
+        editProfileModalOverlay.setVisible(true);
+        editProfileModalOverlay.setManaged(true);
+    }
+>>>>>>> 4bfa8d673417c6e5a843d19ce081eeb7217aa434
 
-        // Auto-fill fields with session user data
+    private void prefillEditFormFields() {
         User user = Session.getCurrentUser();
         if (user != null) {
             firstNameField.setText(user.getFirstName());
@@ -122,7 +156,11 @@ public class ProfileController {
 
 
     @FXML
+<<<<<<< HEAD
     private void confirmAndDeleteAccount(ActionEvent event) {
+=======
+    private void ConfirmAndDeleteAccount(ActionEvent event) {
+>>>>>>> 4bfa8d673417c6e5a843d19ce081eeb7217aa434
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm Delete");
         alert.setHeaderText("Are you sure you want to delete your account?");
@@ -155,7 +193,11 @@ public class ProfileController {
     private void navigateToCoursesPage(ActionEvent event) {
         try {
             Node courseView = FXMLLoader.load(getClass().getResource("/com/byteme/bytemeapplication/fxml/CourseView.fxml"));
+<<<<<<< HEAD
             Node contentArea = navigateToCoursesBtn.getScene().lookup("#contentArea");
+=======
+            Node contentArea = navigateToCoursesButton.getScene().lookup("#contentArea");
+>>>>>>> 4bfa8d673417c6e5a843d19ce081eeb7217aa434
             if (contentArea instanceof Pane pane) {
                 pane.getChildren().clear();
                 pane.getChildren().add(courseView);
@@ -167,7 +209,11 @@ public class ProfileController {
 
        //method to handle progress button click
     @FXML
+<<<<<<< HEAD
     private void navigateProgressPage() {
+=======
+    private void navigateToProgressPage() {
+>>>>>>> 4bfa8d673417c6e5a843d19ce081eeb7217aa434
         try {
             // Load the ProgressController view
             Node progressView = FXMLLoader.load(getClass().getResource("/com/byteme/bytemeapplication/fxml/ProgressView.fxml"));
@@ -190,6 +236,7 @@ public class ProfileController {
 
     @FXML
     private void updateUserPassword(ActionEvent event) {
+<<<<<<< HEAD
         String currentPassword = currentPasswordField.getText();
         String newPassword = newPasswordField.getText();
         String confirmNewPassword = confirmNewPasswordField.getText();
@@ -235,10 +282,66 @@ public class ProfileController {
             newPasswordField.clear();
             confirmNewPasswordField.clear();
 
+=======
+        if (!arePasswordFieldsValid()) return;
+
+        try (Connection conn = DatabaseConnection.getInstance()) {
+            if (!isCurrentPasswordCorrect(conn)) return;
+            updatePasswordInDatabase(conn);
+            showInfoAlert("✅ Password changed successfully!");
+            clearPasswordFields();
+>>>>>>> 4bfa8d673417c6e5a843d19ce081eeb7217aa434
         } catch (Exception e) {
             e.printStackTrace();
             showInfoAlert("❌ Error: " + e.getMessage());
         }
     }
+
+    private boolean arePasswordFieldsValid() {
+        if (oldPasswordField.getText().isEmpty() ||
+                newPasswordField.getText().isEmpty() ||
+                confirmNewPasswordField.getText().isEmpty()) {
+            showInfoAlert("Please fill in all password fields.");
+            return false;
+        }
+
+        if (!newPasswordField.getText().equals(confirmNewPasswordField.getText())) {
+            showInfoAlert("New passwords do not match.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isCurrentPasswordCorrect(Connection conn) throws Exception {
+        String sql = "SELECT password FROM users WHERE id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, Session.getCurrentUser().getId());
+        var rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            if (!rs.getString("password").equals(oldPasswordField.getText())) {
+                showInfoAlert("Old password is incorrect.");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void updatePasswordInDatabase(Connection conn) throws Exception {
+        String sql = "UPDATE users SET password = ? WHERE id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, newPasswordField.getText());
+        stmt.setInt(2, Session.getCurrentUser().getId());
+        stmt.executeUpdate();
+    }
+
+    private void clearPasswordFields() {
+        oldPasswordField.clear();
+        newPasswordField.clear();
+        confirmNewPasswordField.clear();
+    }
+
 
 }
