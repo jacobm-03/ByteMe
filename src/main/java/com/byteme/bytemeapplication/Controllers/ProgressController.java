@@ -70,6 +70,7 @@ public class ProgressController {
         }
     }
 
+    //Updates the progress in each subject
     private void updateSubjectStats(String subjectName) {
         if (!subjectNameToId.containsKey(subjectName)) return;
 
