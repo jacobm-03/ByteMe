@@ -2,6 +2,7 @@ package com.byteme.bytemeapplication.Controllers;
 
 import com.byteme.bytemeapplication.Database.DatabaseConnection;
 import com.byteme.bytemeapplication.Helpers.Session;
+import com.byteme.bytemeapplication.Utils.Alerts;
 import com.byteme.bytemeapplication.Utils.QuizDataHolder;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -157,19 +158,13 @@ public class CourseController {
 
             stmt.setInt(1, subjectId);
             stmt.executeUpdate(); // Deletes subject in database
-            showAlert("✅ Subject deleted successfully!");
+            Alerts.showAlert("✅ Subject deleted successfully!");
 
 
         } catch (SQLException e) {
-            showAlert("❌ Failed to delete subject: " + e.getMessage());
+            Alerts.showAlert("❌ Failed to delete subject: " + e.getMessage());
             e.printStackTrace();
         }
-    }
-
-    private void showAlert(String msg) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText(msg);
-        alert.showAndWait();
     }
 
     private void showEmptyState() {

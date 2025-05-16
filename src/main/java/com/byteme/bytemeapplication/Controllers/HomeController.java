@@ -3,7 +3,6 @@ package com.byteme.bytemeapplication.Controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -93,7 +92,7 @@ public class HomeController {
     public void userDrop(){ //creates the user dropdown
         ContextMenu contextMenu = new ContextMenu();
         MenuItem logoutItem = new MenuItem(" Log out");
-        logoutItem.setOnAction(e -> hLogout());
+        logoutItem.setOnAction(e -> handleLogout());
 
         contextMenu.getItems().add(logoutItem);
 
@@ -105,7 +104,7 @@ public class HomeController {
         });
     }
 
-    private void hLogout() {
+    private void handleLogout() {
         System.out.println("Logging out");
         Session.setCurrentUser(null); // Logs out user
 

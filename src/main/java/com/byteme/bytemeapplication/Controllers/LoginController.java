@@ -4,6 +4,7 @@
     import com.byteme.bytemeapplication.Models.User;
     import com.byteme.bytemeapplication.Helpers.Session;
 
+    import com.byteme.bytemeapplication.Utils.Alerts;
     import javafx.animation.*;
     import javafx.fxml.FXML;
     import javafx.scene.control.Alert;
@@ -71,7 +72,7 @@
             String password = loginPassword.getText();
 
             if (email.isEmpty() || password.isEmpty()) {
-                showAlert("Please enter both email and password.");
+                Alerts.showAlert("Please enter both email and password.");
                 return;
             }
 
@@ -99,11 +100,11 @@
 
                     goToHome(event);  // 🔁 Navigate after session set
                 } else {
-                    showAlert("❌ Invalid email or password.");
+                    Alerts.showAlert("❌ Invalid email or password.");
                 }
 
             } catch (SQLException e) {
-                showAlert("❌ Database error: " + e.getMessage());
+                Alerts.showAlert("❌ Database error: " + e.getMessage());
             } finally {
                 try {
                     if (rs != null) rs.close();
@@ -220,17 +221,17 @@
             String confirmPassword = confirmPasswordField.getText();
 
             if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                showAlert("All fields must be filled.");
+                Alerts.showAlert("All fields must be filled.");
                 return false;
             }
 
             if (!password.equals(confirmPassword)) {
-                showAlert("❌ Passwords do not match.");
+                Alerts.showAlert("❌ Passwords do not match.");
                 return false;
             }
 
             if (!isValidPassword(password)) {
-                showAlert("❌ Password must be at least 6 characters and include 1 special character.");
+                Alerts.showAlert("❌ Password must be at least 6 characters and include 1 special character.");
                 return false;
             }
 
@@ -261,13 +262,13 @@
                     Session.setCurrentUser(user);
                 }
 
-                showAlert("✅ Account created successfully!");
+                Alerts.showAlert("✅ Account created successfully!");
                 clearFields();
                 return true;
 
 
             } catch (SQLException e) {
-                showAlert("❌ Database error: " + e.getMessage());
+                Alerts.showAlert("❌ Database error: " + e.getMessage());
                 return false;
             }
 
@@ -289,12 +290,6 @@
 
         private String generateSixDigitId() {
             return String.valueOf(100000 + new Random().nextInt(900000));
-        }
-
-        private void showAlert(String msg) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText(msg);
-            alert.showAndWait();
         }
 
         private void clearFields() {

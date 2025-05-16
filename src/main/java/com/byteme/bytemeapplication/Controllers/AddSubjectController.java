@@ -2,6 +2,7 @@ package com.byteme.bytemeapplication.Controllers;
 
 import com.byteme.bytemeapplication.Database.DatabaseConnection;
 import com.byteme.bytemeapplication.Helpers.Session;
+import com.byteme.bytemeapplication.Utils.Alerts;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
@@ -44,7 +45,7 @@ public class AddSubjectController {
         int userId = Session.getCurrentUser().getId();
 
         if (subjectName.isEmpty() || colorHex == null) {
-            showAlert("Please enter a subject and pick a color.");
+            Alerts.showAlert("Please enter a subject and pick a color.");
             return;
         }
 
@@ -58,13 +59,13 @@ public class AddSubjectController {
             stmt.setString(3, colorHex);
 
             stmt.executeUpdate();
-            showAlert("✅ Subject saved successfully!");
+            Alerts.showAlert("✅ Subject saved successfully!");
 
             // Optional: navigate back to CourseView after saving
             handleBack();
 
         } catch (SQLException e) {
-            showAlert("❌ Failed to save subject: " + e.getMessage());
+            Alerts.showAlert("❌ Failed to save subject: " + e.getMessage());
         }
     }
 
@@ -87,11 +88,5 @@ public class AddSubjectController {
         } catch (Exception e) {
             return "#1976D2"; // default color
         }
-    }
-
-    private void showAlert(String msg) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText(msg);
-        alert.showAndWait();
     }
 }
